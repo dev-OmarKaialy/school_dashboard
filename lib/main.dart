@@ -1,7 +1,26 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:school_daashboard/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:school_daashboard/features/subject/presentation/bloc/subject_bloc.dart';
+
+import 'core/config/theme/dark_theme.dart';
+import 'core/config/theme/light_theme.dart';
+import 'features/splash/presentation/pages/splash_screen.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => AuthBloc(),
+      ),
+      BlocProvider(
+        create: (context) => SubjectBloc(),
+      ),
+    ],
+    child: const MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -9,11 +28,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return ScreenUtilInit(
+      designSize: const Size(1440, 1070),
+      minTextAdapt: false,
+      ensureScreenSize: true,
+      splitScreenMode: false,
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: LightTheme.getTheme(),
+        darkTheme: DarkTheme.getTheme(),
+        themeMode: ThemeMode.light,
+        builder: BotToastInit(),
+        home: const SplashScreen(),
+        navigatorObservers: [BotToastNavigatorObserver()],
       ),
     );
   }
