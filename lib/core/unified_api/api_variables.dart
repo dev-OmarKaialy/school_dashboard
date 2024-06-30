@@ -28,22 +28,27 @@ class ApiVariables {
     );
   }
 
-  Uri subjects() {
-    return _mainUri(
-      path: 'subject',
-    );
-  }
+/////subjects/////
+  Uri subjects() => _mainUri(path: 'subject');
 
   Uri showSubjects(int id) =>
       _mainUri(path: 'subject/show', queryParameters: {'id': '$id'});
 
-  Uri addSubjects() => _mainUri(
-        path: 'subject/add',
-      );
+  Uri addSubjects() => _mainUri(path: 'subject/add');
 
   Uri updateSubjects(int id) =>
       _mainUri(path: 'subject/update', queryParameters: {'id': '$id'});
 
   Uri deleteSubjects(int id) =>
       _mainUri(path: 'subject/delete', queryParameters: {'id': '$id'});
+/////lessons/////
+  Uri lessons() => _mainUri(path: 'lesson');
+
+  Uri addLessons() => _mainUri(path: 'lesson/add');
+
+  Uri updateLessons(int id) =>
+      _mainUri(path: 'lesson/update', queryParameters: {'id': '$id'});
+
+  Uri deleteLessons(int id) =>
+      _mainUri(path: 'lesson/delete', queryParameters: {'id': '$id'});
 }

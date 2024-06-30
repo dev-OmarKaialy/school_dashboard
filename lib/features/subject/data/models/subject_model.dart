@@ -7,6 +7,8 @@
 
 import 'dart:convert';
 
+import 'lessons_model.dart';
+
 ShowSubjectsResponseModel showSubjectsResponseModelFromJson(String str) =>
     ShowSubjectsResponseModel.fromJson(json.decode(str));
 
@@ -44,7 +46,7 @@ class SubjectModel {
   final String? description;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final List<Lesson>? lessons;
+  final List<LessonModel>? lessons;
 
   SubjectModel({
     this.id,
@@ -67,8 +69,8 @@ class SubjectModel {
             : DateTime.parse(json["updated_at"]),
         lessons: json["lessons"] == null
             ? []
-            : List<Lesson>.from(
-                json["lessons"]!.map((x) => Lesson.fromJson(x))),
+            : List<LessonModel>.from(
+                json["lessons"]!.map((x) => LessonModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -80,58 +82,6 @@ class SubjectModel {
         "lessons": lessons == null
             ? []
             : List<dynamic>.from(lessons!.map((x) => x.toJson())),
-      };
-}
-
-class Lesson {
-  final int? id;
-  final String? name;
-  final String? text;
-  final String? image;
-  final String? activity;
-  final String? description;
-  final int? subjectId;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-
-  Lesson({
-    this.id,
-    this.name,
-    this.text,
-    this.image,
-    this.activity,
-    this.description,
-    this.subjectId,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  factory Lesson.fromJson(Map<String, dynamic> json) => Lesson(
-        id: json["id"],
-        name: json["name"],
-        text: json["text"],
-        image: json["image"],
-        activity: json["activity"],
-        description: json["description"],
-        subjectId: json["subject_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "text": text,
-        "image": image,
-        "activity": activity,
-        "description": description,
-        "subject_id": subjectId,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
       };
 }
 

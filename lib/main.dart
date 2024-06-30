@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_daashboard/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:school_daashboard/features/subject/presentation/bloc/lessons_bloc.dart';
 import 'package:school_daashboard/features/subject/presentation/bloc/subject_bloc.dart';
 
 import 'core/config/theme/dark_theme.dart';
@@ -17,6 +18,9 @@ void main() {
       ),
       BlocProvider(
         create: (context) => SubjectBloc(),
+      ),
+      BlocProvider(
+        create: (context) => LessonsBloc(),
       ),
     ],
     child: const MainApp(),
