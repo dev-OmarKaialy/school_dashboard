@@ -7,15 +7,35 @@ import 'package:school_daashboard/features/subject/data/models/subject_model.dar
 import '../../../../core/error/failures.dart';
 
 class SubjectRepo with HandlingExceptionManager {
-  Future<Either<Failure, List<SubjectResponseModel>>> getSubject() async {
+  Future<Either<Failure, SubjectsResponseModel>> getSubject() async {
     return wrapHandling(tryCall: () async {
       return Right(await SubjectDatasource().getSubjects());
     });
   }
 
-  Future<Either<Failure, String>> addSubject(BodyMap body) async {
+  Future<Either<Failure, ShowSubjectsResponseModel>> addSubject(
+      BodyMap body) async {
     return wrapHandling(tryCall: () async {
       return Right(await SubjectDatasource().addSubject(body));
+    });
+  }
+
+  Future<Either<Failure, ShowSubjectsResponseModel>> updateSubject(
+      BodyMap body, int id) async {
+    return wrapHandling(tryCall: () async {
+      return Right(await SubjectDatasource().editSubject(body, id));
+    });
+  }
+
+  Future<Either<Failure, String>> deleteSubject(int id) async {
+    return wrapHandling(tryCall: () async {
+      return Right(await SubjectDatasource().deleteSubject(id));
+    });
+  }
+
+  Future<Either<Failure, ShowSubjectsResponseModel>> showSubject(int id) async {
+    return wrapHandling(tryCall: () async {
+      return Right(await SubjectDatasource().showSubject(id));
     });
   }
 }

@@ -9,7 +9,7 @@ class ApiVariables {
 
   Uri _mainUri({
     required String path,
-    Map<String, dynamic>? queryParameters,
+    Map<String, String>? queryParameters,
   }) {
     final uri = Uri(
       scheme: _scheme,
@@ -34,9 +34,16 @@ class ApiVariables {
     );
   }
 
-  Uri addsubjects() {
-    return _mainUri(
-      path: 'subject/add',
-    );
-  }
+  Uri showSubjects(int id) =>
+      _mainUri(path: 'subject/show', queryParameters: {'id': '$id'});
+
+  Uri addSubjects() => _mainUri(
+        path: 'subject/add',
+      );
+
+  Uri updateSubjects(int id) =>
+      _mainUri(path: 'subject/update', queryParameters: {'id': '$id'});
+
+  Uri deleteSubjects(int id) =>
+      _mainUri(path: 'subject/delete', queryParameters: {'id': '$id'});
 }

@@ -7,6 +7,8 @@ import 'package:school_daashboard/core/resources/dimension_manager.dart';
 import 'package:school_daashboard/core/resources/font_manager.dart';
 import 'package:school_daashboard/core/widgets/main_button.dart';
 import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
+import 'package:school_daashboard/features/subject/presentation/pages/subject_details_screen.dart';
+import 'package:school_daashboard/features/subject/presentation/widgets/update_subject_dialog.dart';
 
 import '../bloc/subject_bloc.dart';
 import '../widgets/add_subject_dialog.dart';
@@ -121,14 +123,39 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                                   icon: const Icon(Icons.more_horiz_outlined),
                                   itemBuilder: (context) {
                                     return [
-                                      const PopupMenuItem(
-                                        child: Text('Edit'),
+                                      PopupMenuItem(
+                                        child: const Text('Edit'),
+                                        onTap: () {
+                                          showAdaptiveDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return UpdateSubjectDialog(
+                                                    subjectModel:
+                                                        state.subjects[index]);
+                                              });
+                                        },
                                       ),
-                                      const PopupMenuItem(
-                                        child: Text('View'),
+                                      PopupMenuItem(
+                                        onTap: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                            builder: (context) {
+                                              return SubjectDetailsScreen(
+                                                  subjectId: state
+                                                      .subjects[index].id!);
+                                            },
+                                          ));
+                                        },
+                                        child: const Text('View'),
                                       ),
-                                      const PopupMenuItem(
-                                        child: Text('Delete'),
+                                      PopupMenuItem(
+                                        onTap: () {
+                                          context.read<SubjectBloc>().add(
+                                              DeleteSubjectEvent(
+                                                  id: state
+                                                      .subjects[index].id!));
+                                        },
+                                        child: const Text('Delete'),
                                       )
                                     ];
                                   },
