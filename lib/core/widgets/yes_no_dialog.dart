@@ -51,7 +51,7 @@ class YesNoDialog extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          "لا",
+                          "No",
                           style: context.textTheme.titleLarge!
                               .copyWith(color: context.primaryColor),
                         ),
@@ -72,7 +72,7 @@ class YesNoDialog extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          "نعم",
+                          "Yes",
                           style: context.textTheme.titleLarge!
                               .copyWith(color: context.scaffoldBackgroundColor),
                         ),

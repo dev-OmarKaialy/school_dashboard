@@ -11,6 +11,7 @@ import 'package:school_daashboard/features/subject/presentation/pages/subject_de
 import 'package:school_daashboard/features/subject/presentation/widgets/update_subject_dialog.dart';
 
 import '../../../../core/config/theme/light_theme.dart';
+import '../../../../core/widgets/yes_no_dialog.dart';
 import '../bloc/subject_bloc.dart';
 import '../widgets/add_subject_dialog.dart';
 
@@ -105,73 +106,93 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                           mainAxisSpacing: 25),
                       itemCount: state.subjects.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppRaduis.r19),
-                            gradient: const LinearGradient(colors: [
-                              LightThemeColors.linearFirstColor,
-                              LightThemeColors.linearSecondColor,
-                              LightThemeColors.linearThirdColor,
-                            ]),
-                          ),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: Text(
-                                  state.subjects[index].name!,
-                                  style: context.textTheme.titleMedium,
-                                ),
-                              ),
-                              Positioned(
-                                right: 5,
-                                child: PopupMenuButton(
-                                  iconColor: context.scaffoldBackgroundColor,
-                                  color: context.scaffoldBackgroundColor,
-                                  icon: Icon(
-                                    Icons.more_horiz_outlined,
-                                    color: context.primaryColor,
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return SubjectDetailsScreen(
+                                    subjectId: state.subjects[index].id!);
+                              },
+                            ));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(AppRaduis.r19),
+                              gradient: const LinearGradient(colors: [
+                                LightThemeColors.linearFirstColor,
+                                LightThemeColors.linearSecondColor,
+                                LightThemeColors.linearThirdColor,
+                              ]),
+                            ),
+                            child: Stack(
+                              children: [
+                                Center(
+                                  child: Text(
+                                    state.subjects[index].name!,
+                                    style: context.textTheme.titleMedium,
                                   ),
-                                  itemBuilder: (context) {
-                                    return [
-                                      PopupMenuItem(
-                                        child: const Text('Edit'),
-                                        onTap: () {
-                                          showAdaptiveDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return UpdateSubjectDialog(
-                                                    subjectModel:
-                                                        state.subjects[index]);
-                                              });
-                                        },
-                                      ),
-                                      PopupMenuItem(
-                                        onTap: () {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(
-                                            builder: (context) {
-                                              return SubjectDetailsScreen(
-                                                  subjectId: state
-                                                      .subjects[index].id!);
-                                            },
-                                          ));
-                                        },
-                                        child: const Text('View'),
-                                      ),
-                                      PopupMenuItem(
-                                        onTap: () {
-                                          context.read<SubjectBloc>().add(
-                                              DeleteSubjectEvent(
-                                                  id: state
-                                                      .subjects[index].id!));
-                                        },
-                                        child: const Text('Delete'),
-                                      )
-                                    ];
-                                  },
                                 ),
-                              )
-                            ],
+                                Positioned(
+                                  right: 5,
+                                  child: PopupMenuButton(
+                                    iconColor: context.scaffoldBackgroundColor,
+                                    color: context.scaffoldBackgroundColor,
+                                    icon: Icon(
+                                      Icons.more_horiz_outlined,
+                                      color: context.primaryColor,
+                                    ),
+                                    itemBuilder: (context) {
+                                      return [
+                                        PopupMenuItem(
+                                          onTap: () {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                              builder: (context) {
+                                                return SubjectDetailsScreen(
+                                                    subjectId: state
+                                                        .subjects[index].id!);
+                                              },
+                                            ));
+                                          },
+                                          child: const Text('View'),
+                                        ),
+                                        PopupMenuItem(
+                                          child: const Text('Edit'),
+                                          onTap: () {
+                                            showAdaptiveDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return UpdateSubjectDialog(
+                                                      subjectModel: state
+                                                          .subjects[index]);
+                                                });
+                                          },
+                                        ),
+                                        PopupMenuItem(
+                                          onTap: () {
+                                            showAdaptiveDialog(
+                                              context: context,
+                                              builder: (context) => YesNoDialog(
+                                                  title: 'Are You Sure?',
+                                                  onTapYes: () {
+                                                    context
+                                                        .read<SubjectBloc>()
+                                                        .add(DeleteSubjectEvent(
+                                                            id: state
+                                                                .subjects[index]
+                                                                .id!));
+                                                  }),
+                                            );
+                                          },
+                                          child: const Text('Delete'),
+                                        )
+                                      ];
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },

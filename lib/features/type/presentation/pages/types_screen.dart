@@ -5,6 +5,7 @@ import 'package:school_daashboard/core/config/extensions/context_extensions.dart
 import 'package:school_daashboard/core/resources/cubit_status.dart';
 import 'package:school_daashboard/core/utils/toaster.dart';
 import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
+import 'package:school_daashboard/core/widgets/yes_no_dialog.dart';
 import 'package:school_daashboard/features/type/presentation/bloc/type_bloc.dart';
 
 import '../../../../core/config/theme/light_theme.dart';
@@ -125,9 +126,17 @@ class _TypesScreenState extends State<TypesScreen> {
                                     ),
                                     PopupMenuItem(
                                       onTap: () {
-                                        context.read<TypeBloc>().add(
-                                            DeleteTypeEvent(
-                                                id: state.types[index].id!));
+                                        showAdaptiveDialog(
+                                          context: context,
+                                          builder: (context) => YesNoDialog(
+                                              title: 'Are You Sure?',
+                                              onTapYes: () {
+                                                context.read<TypeBloc>().add(
+                                                    DeleteTypeEvent(
+                                                        id: state
+                                                            .types[index].id!));
+                                              }),
+                                        );
                                       },
                                       child: const Text('Delete'),
                                     )

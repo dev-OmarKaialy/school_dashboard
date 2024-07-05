@@ -46,7 +46,6 @@ class SubjectDatasource {
           final result = jsonDecode(str);
           return result['message'];
         });
-    print('delete');
     return await postApi.callRequest();
   }
 }
