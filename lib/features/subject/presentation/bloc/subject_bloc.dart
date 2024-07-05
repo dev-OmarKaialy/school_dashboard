@@ -20,8 +20,12 @@ class SubjectBloc extends Bloc<SubjectEvent, SubjectState> {
     });
     on<AddSubjectsEvent>((event, emit) async {
       emit(state.copyWith(addStatus: CubitStatus.loading));
-      final result = await SubjectRepo()
-          .addSubject({'name': event.title, 'description': event.description});
+      final result = await SubjectRepo().addSubject(
+        {
+          'name': event.title,
+          'description': event.description,
+        },
+      );
       result.fold((l) {
         emit(state.copyWith(addStatus: CubitStatus.failed));
       }, (r) {
@@ -63,8 +67,10 @@ class SubjectBloc extends Bloc<SubjectEvent, SubjectState> {
     });
     on<UpdateSubjectsEvent>((event, emit) async {
       emit(state.copyWith(addStatus: CubitStatus.loading));
-      final result = await SubjectRepo().updateSubject(
-          {'name': event.title, 'description': event.description}, event.id);
+      final result = await SubjectRepo().updateSubject({
+        'name': event.title,
+        'description': event.description,
+      }, event.id);
       result.fold((l) {
         emit(state.copyWith(addStatus: CubitStatus.failed));
       }, (r) {

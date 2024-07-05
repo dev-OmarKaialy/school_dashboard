@@ -9,6 +9,7 @@ import 'package:school_daashboard/features/subject/presentation/bloc/subject_blo
 import 'core/config/theme/dark_theme.dart';
 import 'core/config/theme/light_theme.dart';
 import 'features/splash/presentation/pages/splash_screen.dart';
+import 'features/type/presentation/bloc/type_bloc.dart';
 
 void main() {
   runApp(MultiBlocProvider(
@@ -22,6 +23,9 @@ void main() {
       BlocProvider(
         create: (context) => LessonsBloc(),
       ),
+      BlocProvider(
+        create: (context) => TypeBloc(),
+      ),
     ],
     child: const MainApp(),
   ));
@@ -34,7 +38,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(1440, 1070),
-      minTextAdapt: false,
+      minTextAdapt: true,
+      enableScaleText: () {
+        return true;
+      },
       ensureScreenSize: true,
       splitScreenMode: false,
       builder: (context, child) => MaterialApp(

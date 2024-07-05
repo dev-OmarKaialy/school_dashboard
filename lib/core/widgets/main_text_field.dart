@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:school_daashboard/core/config/theme/light_theme.dart';
 
 import '../../../../core/resources/font_manager.dart';
 import '../config/extensions/context_extensions.dart';
@@ -108,7 +109,6 @@ class _MainTextFieldState extends State<MainTextField>
       if (widget.text != null)
         Text(widget.text!,
             style: TextStyle(
-              color: Colors.black,
               fontSize: FontSize.s16,
             )),
       if (widget.text != null) 7.verticalSpace,
@@ -167,7 +167,7 @@ class _MainTextFieldState extends State<MainTextField>
                 labelStyle:
                     widget.hintTextStyle ?? context.textTheme.bodyMedium,
                 fillColor:
-                    widget.fillColor ?? context.theme.scaffoldBackgroundColor,
+                    widget.fillColor ?? LightThemeColors.linearThirdColor,
                 focusColor: context.theme.primaryColor,
                 hintStyle: widget.hintTextStyle ??
                     context.textTheme.bodyMedium!.copyWith(
@@ -177,14 +177,14 @@ class _MainTextFieldState extends State<MainTextField>
 
                 enabledBorder: OutlineInputBorder(
                   borderRadius: widget.borderRadius ??
-                      BorderRadius.circular(AppRaduis.r8),
+                      BorderRadius.circular(AppRaduis.r19),
                   borderSide: BorderSide(color: context.theme.hintColor),
                 ),
                 errorStyle: context.textTheme.bodyLarge
                     ?.copyWith(color: context.theme.colorScheme.error),
                 disabledBorder: OutlineInputBorder(
                   borderRadius: widget.borderRadius ??
-                      BorderRadius.circular(AppRaduis.r8),
+                      BorderRadius.circular(AppRaduis.r19),
                   borderSide: BorderSide(
                     color: widget.error
                         ? context.theme.colorScheme.error
@@ -193,7 +193,7 @@ class _MainTextFieldState extends State<MainTextField>
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: widget.borderRadius ??
-                      BorderRadius.circular(AppRaduis.r8),
+                      BorderRadius.circular(AppRaduis.r19),
                   borderSide: BorderSide(
                       color: widget.borderColor ?? context.theme.primaryColor),
                 ),
@@ -202,7 +202,7 @@ class _MainTextFieldState extends State<MainTextField>
                     maxWidth: widget.width ?? double.infinity),
                 border: OutlineInputBorder(
                   borderRadius: widget.borderRadius ??
-                      BorderRadius.circular(AppRaduis.r8),
+                      BorderRadius.circular(AppRaduis.r19),
                   borderSide: BorderSide(color: context.theme.hintColor),
                 ),
 
@@ -213,10 +213,16 @@ class _MainTextFieldState extends State<MainTextField>
 
                 suffixIcon: widget.isPassword
                     ? obsecureValue
-                        ? const Icon(Icons.visibility).onTap(() {
+                        ? const Icon(
+                            Icons.visibility,
+                            color: LightThemeColors.linearThirdColor,
+                          ).onTap(() {
                             _obscure.value = !obsecureValue;
                           })
-                        : const Icon(Icons.visibility_off).onTap(() {
+                        : const Icon(
+                            Icons.visibility_off,
+                            color: LightThemeColors.linearThirdColor,
+                          ).onTap(() {
                             _obscure.value = !obsecureValue;
                           })
                     : widget.suffixIcon,

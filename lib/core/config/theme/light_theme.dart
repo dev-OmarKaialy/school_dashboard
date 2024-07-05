@@ -9,12 +9,12 @@ import 'theme__manager.dart';
 // Define your light theme colors
 class LightThemeColors {
   const LightThemeColors._();
-  static const Color primaryColor = Color(0xff4880FF);
-  static const Color primaryColorLight1 = Color(0xff4880FF);
-  static const Color primaryColorLight2 = Color(0xff4880FF);
+  static const Color primaryColor = Color(0xf03A405A);
+  static const Color primaryColorLight1 = Color(0xf03A405A);
+  static const Color primaryColorLight2 = Color(0xf03A405A);
 
 // Body Color
-  static const Color scaffoldColor = Color(0xFFFBF9FC);
+  static const Color scaffoldColor = Color(0xffF2EEEB);
 
   static const Color appbarColor = Color(0xFFFBF9FC);
   static const Color appbarTextColor = Color(0xFF292D32);
@@ -26,18 +26,18 @@ class LightThemeColors {
 
   static const Color indicatorHintColor = Color(0xFFEBEBEB);
   static const Color iconColor = Color(0xFF292D32);
-  static const Color percentageincrease = Color(0xFF16E32A);
-  static const Color percentagedecrease = Color(0xFFFF9C3F);
+  static const Color linearThirdColor = Color(0xffAEC5EB);
+  static const Color linearSecondColor = Color(0xffF7E1D7);
 
-  static const Color containerColor = Color(0xFFF7F7F7);
-  static const Color dividerColor = Color(0xFFEEEEEE);
+  static const Color containerColor = Color(0xf03A405A);
+  static const Color dividerColor = Color(0xf03A405A);
 
   // Text Color
   static const Color textColorTitle = Color(0xFF1D1F1F);
-  static const Color textColorSub = Color(0xFF212D52);
-  static const Color loginTitle = Color(0xFF212D52);
+  static const Color textColorSub = Color(0xFF1D1F1F);
+  static const Color loginTitle = Color(0xFF1D1F1F);
   static const Color centerText = Color(0xFFA5A5A5);
-  static const Color sendCodeTextColor = Color(0xFF787878);
+  static const Color linearFirstColor = Color(0xffEDAFB8);
   static const Color takeWayColor = Color(0xFF233044);
 
   static const Color hintColor = Color(0xFF969AA0);
@@ -116,7 +116,7 @@ class LightTheme {
         displayLarge: TextStylesManager.tajawalSemiBold.copyWith(
             color: LightThemeColors.hintColor, fontSize: FontSize.s18),
         displayMedium: TextStylesManager.tajawalRegular.copyWith(
-            color: LightThemeColors.sendCodeTextColor, fontSize: FontSize.s14),
+            color: LightThemeColors.linearFirstColor, fontSize: FontSize.s14),
         displaySmall: TextStylesManager.tajawalMedium.copyWith(
             color: LightThemeColors.hintColor2, fontSize: FontSize.s12),
       ),

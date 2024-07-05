@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:school_daashboard/core/config/extensions/context_extensions.dart';
+import 'package:school_daashboard/core/config/theme/light_theme.dart';
 import 'package:school_daashboard/core/global_functions.dart';
 import 'package:school_daashboard/features/main/presentation/pages/main_screen.dart';
 
@@ -36,11 +38,15 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Container(
       width: 1.sw,
       height: 1.sh,
-      decoration: const BoxDecoration(
-        color: Color(0xff4880FF),
+      decoration: BoxDecoration(
+        color: LightThemeColors.linearThirdColor,
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: AssetImage(
+          colorFilter: ColorFilter.mode(
+            context.theme.primaryColor,
+            BlendMode.color,
+          ),
+          image: const AssetImage(
             'assets/background.png',
           ),
         ),
@@ -53,6 +59,8 @@ class _SplashScreenState extends State<SplashScreen> {
             clipBehavior: Clip.hardEdge,
             child: Image.asset(
               'assets/app_icon.png',
+              width: 100.sp,
+              height: 100.sp,
             )),
       ),
     ));

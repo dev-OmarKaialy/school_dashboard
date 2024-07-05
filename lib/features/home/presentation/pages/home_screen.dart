@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:school_daashboard/core/config/extensions/context_extensions.dart';
+import 'package:school_daashboard/core/config/theme/light_theme.dart';
 import 'package:school_daashboard/core/resources/dimension_manager.dart';
 import 'package:school_daashboard/features/home/data/models/home_items.dart';
+import 'package:school_daashboard/features/type/presentation/pages/types_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,25 +14,45 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final list = [
-    HomeItem(title: 'Classes', image: 'assets/classes.png'),
-    HomeItem(title: 'Teachers', image: 'assets/teachers.png'),
-    HomeItem(title: 'Students', image: 'assets/students.png'),
-    HomeItem(title: 'Statistics', image: 'assets/statistics.png'),
+    HomeItem(
+        title: 'Classes',
+        image: 'assets/classes.png',
+        screen: const TypesScreen()),
+    HomeItem(
+        title: 'Teachers',
+        image: 'assets/teachers.png',
+        screen: const SizedBox()),
+    HomeItem(
+        title: 'Students',
+        image: 'assets/students.png',
+        screen: const SizedBox()),
+    HomeItem(
+        title: 'Statistics',
+        image: 'assets/statistics.png',
+        screen: const SizedBox()),
   ];
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(25),
       child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: context.isPhone
+              ? 1
+              : context.isTablet
+                  ? 2
+                  : 4,
           mainAxisSpacing: 20,
           crossAxisSpacing: 20,
         ),
         itemCount: list.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (c) {
+                return list[index].screen;
+              }));
+            },
             child: Container(
               decoration: BoxDecoration(
                   color: context.scaffoldBackgroundColor,
@@ -51,8 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.vertical(
                               top: Radius.circular(AppRaduis.r15)),
                           gradient: const LinearGradient(colors: [
-                            Color(0xff2AD4FF),
-                            Color(0xff8080FF),
+                            LightThemeColors.linearFirstColor,
+                            LightThemeColors.linearSecondColor,
+                            LightThemeColors.linearThirdColor,
                           ])),
                       child: Image.asset(list[index].image),
                     ),

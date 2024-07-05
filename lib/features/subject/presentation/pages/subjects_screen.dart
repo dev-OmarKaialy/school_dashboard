@@ -10,6 +10,7 @@ import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
 import 'package:school_daashboard/features/subject/presentation/pages/subject_details_screen.dart';
 import 'package:school_daashboard/features/subject/presentation/widgets/update_subject_dialog.dart';
 
+import '../../../../core/config/theme/light_theme.dart';
 import '../bloc/subject_bloc.dart';
 import '../widgets/add_subject_dialog.dart';
 
@@ -77,11 +78,14 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                       ),
                     ),
                   CubitStatus.loading => GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 8,
-                              crossAxisSpacing: 25,
-                              mainAxisSpacing: 25),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: context.isPhone
+                              ? 2
+                              : context.isTablet
+                                  ? 4
+                                  : 8,
+                          crossAxisSpacing: 25,
+                          mainAxisSpacing: 25),
                       itemCount: 15,
                       itemBuilder: (context, index) {
                         return ShimmerWidget.rectangular(
@@ -91,19 +95,23 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                       },
                     ),
                   CubitStatus.success => GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 8,
-                              crossAxisSpacing: 25,
-                              mainAxisSpacing: 25),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: context.isPhone
+                              ? 2
+                              : context.isTablet
+                                  ? 4
+                                  : 8,
+                          crossAxisSpacing: 25,
+                          mainAxisSpacing: 25),
                       itemCount: state.subjects.length,
                       itemBuilder: (context, index) {
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(AppRaduis.r19),
                             gradient: const LinearGradient(colors: [
-                              Color(0xff2AD4FF),
-                              Color(0xff8080FF),
+                              LightThemeColors.linearFirstColor,
+                              LightThemeColors.linearSecondColor,
+                              LightThemeColors.linearThirdColor,
                             ]),
                           ),
                           child: Stack(
@@ -111,8 +119,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                               Center(
                                 child: Text(
                                   state.subjects[index].name!,
-                                  style: context.textTheme.titleMedium
-                                      ?.copyWith(color: Colors.white),
+                                  style: context.textTheme.titleMedium,
                                 ),
                               ),
                               Positioned(
@@ -120,7 +127,10 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                                 child: PopupMenuButton(
                                   iconColor: context.scaffoldBackgroundColor,
                                   color: context.scaffoldBackgroundColor,
-                                  icon: const Icon(Icons.more_horiz_outlined),
+                                  icon: Icon(
+                                    Icons.more_horiz_outlined,
+                                    color: context.primaryColor,
+                                  ),
                                   itemBuilder: (context) {
                                     return [
                                       PopupMenuItem(

@@ -25,6 +25,7 @@ class MainScreen extends StatelessWidget {
                 screenPadding: 0,
                 backgroundColor: context.scaffoldBackgroundColor,
                 selectedTextColor: context.primaryColor,
+                unselectedTextColor: Colors.grey[700]!,
                 selectedIconColor: context.primaryColor,
                 toggleTitle: 'Collapse',
                 selectedIconBox: context.scaffoldBackgroundColor,

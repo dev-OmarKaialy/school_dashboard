@@ -7,6 +7,7 @@ import 'package:school_daashboard/core/resources/font_manager.dart';
 import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
 import 'package:school_daashboard/features/subject/presentation/bloc/subject_bloc.dart';
 
+import '../../../../core/config/theme/light_theme.dart';
 import '../bloc/lessons_bloc.dart';
 
 class SubjectDetailsScreen extends StatefulWidget {
@@ -42,7 +43,10 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.cyan.withOpacity(.3),
+            backgroundColor: LightThemeColors.linearThirdColor,
+            shape: const RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(10))),
             title: Text(
                 'Subject ${state.showStatus == CubitStatus.success ? state.subject?.name : ''}'),
           ),
@@ -56,7 +60,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                       for (int i = 0; i < 5; i++)
                         ShimmerWidget.rectangular(
                           height: 60,
-                          width: .48.sw,
+                          width: !context.isPhone ? .48.sw : .9.sw,
                         )
                     ],
                   ),
@@ -70,11 +74,16 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                             Container(
                               decoration: BoxDecoration(
                                   gradient: const LinearGradient(colors: [
-                                    Color(0xff2AD4FF),
-                                    Color(0xff8080FF),
+                                    LightThemeColors.linearThirdColor,
+                                    LightThemeColors.linearSecondColor,
+                                    LightThemeColors.linearFirstColor,
                                   ]),
                                   borderRadius: BorderRadius.circular(15)),
-                              width: 1.sw > 800 ? .48.sw : .9.sw,
+                              width: context.isPhone
+                                  ? .9.sw
+                                  : context.isTablet
+                                      ? .45.sw
+                                      : .48.sw,
                               child: Theme(
                                 data: ThemeData(
                                   splashColor: Colors.transparent,

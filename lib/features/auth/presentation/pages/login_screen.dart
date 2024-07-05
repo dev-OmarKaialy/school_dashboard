@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_daashboard/core/config/extensions/string_extensions.dart';
+import 'package:school_daashboard/core/config/theme/light_theme.dart';
 import 'package:school_daashboard/core/global_functions.dart';
 import 'package:school_daashboard/core/resources/cubit_status.dart';
 import 'package:school_daashboard/core/utils/toaster.dart';
@@ -49,9 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 1.sw,
               height: 1.sh,
               decoration: const BoxDecoration(
-                color: Color(0xff4880FF),
+                color: LightThemeColors.linearThirdColor,
                 image: DecorationImage(
                   fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      LightThemeColors.primaryColor, BlendMode.color),
                   image: AssetImage(
                     'assets/background.png',
                   ),
@@ -61,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
-                      color: Colors.white),
+                      color: LightThemeColors.linearThirdColor),
                   width: .43.sw,
                   height: 0.68.sh,
                   child: Padding(
@@ -73,7 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text('Login To Your Account',
-                              style: context.textTheme.titleLarge),
+                              style: context.textTheme.titleLarge
+                                  ?.copyWith(color: context.primaryColor)),
                           Text(
                               'Please enter your email and password to continue',
                               style: context.textTheme.titleSmall),
@@ -81,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: 'Email address:',
                             hint: 'example@mail.com',
                             height: .08.sh,
+                            textInputAction: TextInputAction.next,
                             controller: emailController,
                             validator: (p0) {
                               if (p0 != null && p0.validateEmail()) {
@@ -94,6 +99,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: 'Password:',
                             hint: '●●●●●●●●',
                             isPassword: true,
+                            textInputAction: TextInputAction.go,
+                            onSubmitted: (value) {
+                              if (formKey.currentState!.validate()) {
+                                context.read<AuthBloc>().add(LoginEvent(
+                                    email: emailController.text,
+                                    password: passwordController.text));
+                              }
+                            },
                             height: .08.sh,
                             controller: passwordController,
                             validator: (value) {

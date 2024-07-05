@@ -52,7 +52,7 @@ class _UpdateSubjectDialogState extends State<UpdateSubjectDialog> {
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 40.sp, vertical: 20.sp),
-          width: 1.sw >= 800 ? .5.sw : .9.sw,
+          width: context.isDesktop ? .5.sw : .9.sw,
           height: .7.sh,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

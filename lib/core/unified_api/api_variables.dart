@@ -51,4 +51,12 @@ class ApiVariables {
 
   Uri deleteLessons(int id) =>
       _mainUri(path: 'lesson/delete', queryParameters: {'id': '$id'});
+/////types/////
+  Uri types() => _mainUri(path: 'type');
+
+  Uri addTypes() => _mainUri(path: 'type/add');
+
+  Uri updateTypes(int id) => _mainUri(path: 'type/update/$id');
+
+  Uri deleteTypes(int id) => _mainUri(path: 'type/delete/$id');
 }

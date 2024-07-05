@@ -33,9 +33,9 @@ class ShimmerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       //this is background color
-      baseColor: Colors.grey[300]!,
+      baseColor: context.primaryColor,
       //this is foreground color
-      highlightColor: Colors.grey[100]!,
+      highlightColor: Colors.grey[500]!,
       // the duration that loading animation take
       period: const Duration(seconds: 1),
       child: Container(
