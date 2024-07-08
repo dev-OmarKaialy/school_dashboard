@@ -203,7 +203,6 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                               style: context
                                                   .textTheme.titleLarge
                                                   ?.copyWith(
-                                                      color: Colors.white,
                                                       fontSize: FontSize.s16),
                                             ),
                                             Expanded(
@@ -211,9 +210,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                   lessonState.lessons[i].text!,
                                                   style: context
                                                       .textTheme.titleLarge
-                                                      ?.copyWith(
-                                                    color: Colors.white,
-                                                  )),
+                                                      ?.copyWith()),
                                             ),
                                           ]),
                                       20.verticalSpace,
@@ -226,7 +223,6 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                               style: context
                                                   .textTheme.titleLarge
                                                   ?.copyWith(
-                                                      color: Colors.white,
                                                       fontSize: FontSize.s16),
                                             ),
                                             Expanded(
@@ -235,9 +231,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                       .lessons[i].activity!,
                                                   style: context
                                                       .textTheme.titleLarge
-                                                      ?.copyWith(
-                                                    color: Colors.white,
-                                                  )),
+                                                      ?.copyWith()),
                                             ),
                                           ]),
                                       20.verticalSpace,
@@ -249,7 +243,6 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                 style: context
                                                     .textTheme.titleLarge
                                                     ?.copyWith(
-                                                        color: Colors.white,
                                                         fontSize:
                                                             FontSize.s18)),
                                             Expanded(
@@ -258,9 +251,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                       .lessons[i].description!,
                                                   style: context
                                                       .textTheme.titleLarge
-                                                      ?.copyWith(
-                                                    color: Colors.white,
-                                                  )),
+                                                      ?.copyWith()),
                                             ),
                                           ]),
                                       20.verticalSpace,
@@ -274,7 +265,6 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                             'Lesson Image:',
                                             style: context.textTheme.titleLarge
                                                 ?.copyWith(
-                                                    color: Colors.white,
                                                     fontSize: FontSize.s18),
                                           ),
                                           ClipRRect(
