@@ -92,10 +92,14 @@ class _TypesScreenState extends State<TypesScreen> {
                         ),
                         child: Stack(
                           children: [
-                            Center(
-                              child: Text(
+                            ListTile(
+                              title: Text(
                                 state.types[index].name!,
-                                style: context.textTheme.titleMedium,
+                                style: context.textTheme.titleLarge,
+                              ),
+                              subtitle: Text(
+                                'Total Amount: ${state.types[index].totalAmount!}',
+                                style: context.textTheme.bodySmall,
                               ),
                             ),
                             Positioned(

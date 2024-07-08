@@ -2,13 +2,78 @@
 //
 //     final indexTypesResponseModel = indexTypesResponseModelFromJson(jsonString);
 
+// To parse this JSON data, do
+//
+//     final showTypesResponseModel = showTypesResponseModelFromJson(jsonString);
+
 import 'dart:convert';
 
-List<TypeModel> indexTypesResponseModelFromJson(String str) =>
-    List<TypeModel>.from(json.decode(str).map((x) => TypeModel.fromJson(x)));
+ShowTypesResponseModel showTypesResponseModelFromJson(String str) =>
+    ShowTypesResponseModel.fromJson(json.decode(str));
 
-String indexTypesResponseModelToJson(List<TypeModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String showTypesResponseModelToJson(ShowTypesResponseModel data) =>
+    json.encode(data.toJson());
+
+class ShowTypesResponseModel {
+  final bool? status;
+  final String? message;
+  final TypeModel? data;
+
+  ShowTypesResponseModel({
+    this.status,
+    this.message,
+    this.data,
+  });
+
+  factory ShowTypesResponseModel.fromJson(Map<String, dynamic> json) =>
+      ShowTypesResponseModel(
+        status: json["status"],
+        message: json["message"],
+        data: json["data"] == null ? null : TypeModel.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+        "data": data?.toJson(),
+      };
+}
+
+IndexTypesResponseModel indexTypesResponseModelFromJson(String str) =>
+    IndexTypesResponseModel.fromJson(json.decode(str));
+
+String indexTypesResponseModelToJson(IndexTypesResponseModel data) =>
+    json.encode(data.toJson());
+
+class IndexTypesResponseModel {
+  final bool? status;
+  final String? message;
+  final List<TypeModel>? data;
+
+  IndexTypesResponseModel({
+    this.status,
+    this.message,
+    this.data,
+  });
+
+  factory IndexTypesResponseModel.fromJson(Map<String, dynamic> json) =>
+      IndexTypesResponseModel(
+        status: json["status"],
+        message: json["message"],
+        data: json["data"] == null
+            ? []
+            : List<TypeModel>.from(
+                json["data"]!.map((x) => TypeModel.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
+}
 
 class TypeModel {
   final int? id;
@@ -33,7 +98,7 @@ class TypeModel {
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        totalAmount: json["total_amount"],
+        totalAmount: json["total_amount"].toString(),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),

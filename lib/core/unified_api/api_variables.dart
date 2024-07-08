@@ -56,7 +56,7 @@ class ApiVariables {
 
   Uri addTypes() => _mainUri(path: 'type/add');
 
-  Uri updateTypes(int id) => _mainUri(path: 'type/update/$id');
+  Uri updateTypes() => _mainUri(path: 'type/update');
 
-  Uri deleteTypes(int id) => _mainUri(path: 'type/delete/$id');
+  Uri deleteTypes(int id) => _mainUri(path: 'type/delete');
 }

@@ -6,13 +6,13 @@ import 'package:school_daashboard/features/type/data/datasources/type_datasource
 import 'package:school_daashboard/features/type/data/models/index_type_model.dart';
 
 class TypeRepoImpl with HandlingExceptionManager {
-  Future<Either<Failure, List<TypeModel>>> getTypes() async {
+  Future<Either<Failure, IndexTypesResponseModel>> getTypes() async {
     return await wrapHandling(tryCall: () async {
       return Right(await TypeDatasource().indexTypes());
     });
   }
 
-  Future<Either<Failure, void>> addType(BodyMap body) async {
+  Future<Either<Failure, ShowTypesResponseModel>> addType(BodyMap body) async {
     return await wrapHandling(tryCall: () async {
       return Right(await TypeDatasource().addType(body));
     });
@@ -24,9 +24,10 @@ class TypeRepoImpl with HandlingExceptionManager {
     });
   }
 
-  Future<Either<Failure, void>> updateType(int id, BodyMap body) async {
+  Future<Either<Failure, ShowTypesResponseModel>> updateType(
+      BodyMap body) async {
     return await wrapHandling(tryCall: () async {
-      return Right(await TypeDatasource().updateType(id, body));
+      return Right(await TypeDatasource().updateType(body));
     });
   }
 }

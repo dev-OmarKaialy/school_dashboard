@@ -16,7 +16,7 @@ class TypeBloc extends Bloc<TypeEvent, TypeState> {
       result.fold(
         (l) => emit(state.copyWith(indexStatus: CubitStatus.failed)),
         (r) => emit(
-          state.copyWith(indexStatus: CubitStatus.success, types: r),
+          state.copyWith(indexStatus: CubitStatus.success, types: r.data),
         ),
       );
     });
@@ -31,7 +31,12 @@ class TypeBloc extends Bloc<TypeEvent, TypeState> {
         Toaster.showToast(l.message, isError: true);
         emit(state.copyWith(addStatus: CubitStatus.failed));
       }, (r) {
-        emit(state.copyWith(addStatus: CubitStatus.success));
+        emit(
+          state.copyWith(
+            addStatus: CubitStatus.success,
+            types: List.of(state.types)..add(r.data!),
+          ),
+        );
       });
     });
     on<DeleteTypeEvent>((event, emit) async {
@@ -52,16 +57,16 @@ class TypeBloc extends Bloc<TypeEvent, TypeState> {
     on<UpdateTypeEvent>((event, emit) async {
       emit(state.copyWith(addStatus: CubitStatus.loading));
       final result = await TypeRepoImpl()
-          .updateType(event.id, {'total_amount': event.totalAmount});
+          .updateType({'total_amount': event.totalAmount, 'id': event.id});
       result.fold((l) {
         Toaster.showToast(l.message, isError: true);
         emit(state.copyWith(addStatus: CubitStatus.failed));
       }, (r) {
         emit(state.copyWith(
-          addStatus: CubitStatus.success,
-          // types: List.of(state.types)
-          // ..[state.types.lastIndexWhere((e)=> e.id==event.id)] =
-        ));
+            addStatus: CubitStatus.success,
+            types: List.of(state.types)
+              ..[state.types.lastIndexWhere((e) => e.id == event.id)] =
+                  r.data!));
       });
     });
   }

@@ -28,5 +28,26 @@ class LessonsBloc extends Bloc<LessonsEvent, LessonsState> {
       });
       Toaster.closeLoading();
     });
+    on<AddLessonEvent>((event, emit) async {
+      emit(state.copyWith(addStatus: CubitStatus.loading));
+      final result = await LessonRepo().storeLessons({
+        'name': event.name,
+        'text': event.text,
+        'description': event.description,
+        'image': event.image,
+        'activity': event.activity,
+        'subject_id': event.subjectId,
+      });
+      result.fold((l) {
+        Toaster.showToast(l.message, isError: true);
+        emit(state.copyWith(addStatus: CubitStatus.failed));
+      }, (r) {
+        emit(
+          state.copyWith(
+              lessons: List.of(state.lessons)..add(r.data!),
+              addStatus: CubitStatus.success),
+        );
+      });
+    });
   }
 }

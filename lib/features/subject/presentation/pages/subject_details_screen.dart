@@ -5,9 +5,13 @@ import 'package:school_daashboard/core/config/extensions/context_extensions.dart
 import 'package:school_daashboard/core/resources/cubit_status.dart';
 import 'package:school_daashboard/core/resources/font_manager.dart';
 import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
+import 'package:school_daashboard/core/widgets/yes_no_dialog.dart';
 import 'package:school_daashboard/features/subject/presentation/bloc/subject_bloc.dart';
+import 'package:school_daashboard/features/subject/presentation/widgets/add_lesson_dialog.dart';
+import 'package:school_daashboard/features/subject/presentation/widgets/update_lesson_dialog.dart';
 
 import '../../../../core/config/theme/light_theme.dart';
+import '../../../../core/widgets/main_button.dart';
 import '../bloc/lessons_bloc.dart';
 
 class SubjectDetailsScreen extends StatefulWidget {
@@ -49,6 +53,28 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                     BorderRadius.vertical(bottom: Radius.circular(10))),
             title: Text(
                 'Subject ${state.showStatus == CubitStatus.success ? state.subject?.name : ''}'),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: MainButton(
+                  text: ' Add',
+                  width: .1.sw,
+                  onPressed: () {
+                    showGeneralDialog(
+                      context: context,
+                      pageBuilder: (context, _, __) {
+                        return AddLessonDialog(
+                          id: widget.subjectId,
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.add,
+                  ),
+                ),
+              )
+            ],
           ),
           body: Padding(
               padding: const EdgeInsets.all(15),
@@ -115,9 +141,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                     title: Text(
                                       lessonState.lessons[i].name!,
                                       style: context.textTheme.titleLarge
-                                          ?.copyWith(
-                                              color: Colors.white,
-                                              fontSize: FontSize.s20),
+                                          ?.copyWith(fontSize: FontSize.s20),
                                     ),
                                     childrenPadding: const EdgeInsets.only(
                                         bottom: 25, right: 25, left: 25),
@@ -129,17 +153,39 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                             MainAxisAlignment.end,
                                         children: [
                                           IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                showGeneralDialog(
+                                                    context: context,
+                                                    pageBuilder:
+                                                        (context, _, __) {
+                                                      return UpdateLessonDialog(
+                                                          lesson: lessonState
+                                                              .lessons[i]);
+                                                    });
+                                              },
                                               icon: Icon(
                                                 Icons.edit_note_rounded,
                                                 size: 30.sp,
                                               )),
                                           IconButton(
                                               onPressed: () {
-                                                context.read<LessonsBloc>().add(
-                                                    DeleteLessonEvent(
-                                                        id: lessonState
-                                                            .lessons[i].id!));
+                                                showAdaptiveDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return YesNoDialog(
+                                                          title:
+                                                              'Are You Sure?',
+                                                          onTapYes: () {
+                                                            context
+                                                                .read<
+                                                                    LessonsBloc>()
+                                                                .add(DeleteLessonEvent(
+                                                                    id: lessonState
+                                                                        .lessons[
+                                                                            i]
+                                                                        .id!));
+                                                          });
+                                                    });
                                               },
                                               icon: Icon(
                                                 Icons.delete_outline,

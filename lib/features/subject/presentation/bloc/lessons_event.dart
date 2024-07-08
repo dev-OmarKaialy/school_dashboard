@@ -10,7 +10,22 @@ class AddLocalLessons extends LessonsEvent {
   });
 }
 
-class AddLessonEvent extends LessonsEvent {}
+class AddLessonEvent extends LessonsEvent {
+  final String name;
+  final String activity;
+  final String text;
+  final String description;
+  final String image;
+  final int subjectId;
+  AddLessonEvent({
+    required this.name,
+    required this.activity,
+    required this.text,
+    required this.description,
+    required this.image,
+    required this.subjectId,
+  });
+}
 
 class DeleteLessonEvent extends LessonsEvent {
   final int id;
