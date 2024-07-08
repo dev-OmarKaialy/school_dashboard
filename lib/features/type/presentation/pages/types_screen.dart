@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_daashboard/core/config/extensions/context_extensions.dart';
 import 'package:school_daashboard/core/resources/cubit_status.dart';
+import 'package:school_daashboard/core/resources/font_manager.dart';
 import 'package:school_daashboard/core/utils/toaster.dart';
 import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
 import 'package:school_daashboard/core/widgets/yes_no_dialog.dart';
@@ -70,87 +71,107 @@ class _TypesScreenState extends State<TypesScreen> {
           },
           builder: (context, state) {
             return switch (state.indexStatus) {
-              CubitStatus.success => GridView.builder(
-                  itemCount: state.types.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 25,
-                      crossAxisSpacing: 25,
-                      childAspectRatio: 6,
-                      crossAxisCount: context.isPhone
-                          ? 1
-                          : context.isTablet
-                              ? 2
-                              : 3),
-                  itemBuilder: (context, index) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppRaduis.r19),
-                          gradient: const LinearGradient(colors: [
-                            LightThemeColors.linearFirstColor,
-                            LightThemeColors.linearSecondColor,
-                            LightThemeColors.linearThirdColor,
-                          ]),
+              CubitStatus.success => switch (state.types.length) {
+                  0 => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Row(),
+                        Image.asset(
+                          'assets/noresults.png',
                         ),
-                        child: Stack(
-                          children: [
-                            ListTile(
-                              title: Text(
-                                state.types[index].name!,
-                                style: context.textTheme.titleLarge,
-                              ),
-                              subtitle: Text(
-                                'Total Amount: ${state.types[index].totalAmount!}',
-                                style: context.textTheme.bodySmall,
-                              ),
+                        Text(
+                          'There Is No Types Yet',
+                          style: context.textTheme.titleLarge
+                              ?.copyWith(fontSize: FontSize.s24),
+                        ),
+                      ],
+                    ),
+                  _ => GridView.builder(
+                      itemCount: state.types.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisSpacing: 25,
+                          crossAxisSpacing: 25,
+                          childAspectRatio: 6,
+                          crossAxisCount: context.isPhone
+                              ? 1
+                              : context.isTablet
+                                  ? 2
+                                  : 3),
+                      itemBuilder: (context, index) => Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(AppRaduis.r19),
+                              gradient: const LinearGradient(colors: [
+                                LightThemeColors.linearFirstColor,
+                                LightThemeColors.linearSecondColor,
+                                LightThemeColors.linearThirdColor,
+                              ]),
                             ),
-                            Positioned(
-                              right: 5,
-                              child: PopupMenuButton(
-                                iconColor: context.scaffoldBackgroundColor,
-                                color: context.scaffoldBackgroundColor,
-                                icon: Icon(
-                                  Icons.more_horiz_outlined,
-                                  color: context.primaryColor,
+                            child: Stack(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    state.types[index].name!,
+                                    style: context.textTheme.titleLarge,
+                                  ),
+                                  subtitle: Text(
+                                    'Total Amount: ${state.types[index].totalAmount!}',
+                                    style: context.textTheme.bodySmall,
+                                  ),
                                 ),
-                                itemBuilder: (context) {
-                                  return [
-                                    PopupMenuItem(
-                                      child: const Text('Edit'),
-                                      onTap: () {
-                                        showAdaptiveDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return UpdateTypeDialog(
-                                                  type: state.types[index]);
-                                            });
-                                      },
+                                Positioned(
+                                  right: 5,
+                                  child: PopupMenuButton(
+                                    iconColor: context.scaffoldBackgroundColor,
+                                    color: context.scaffoldBackgroundColor,
+                                    icon: Icon(
+                                      Icons.more_horiz_outlined,
+                                      color: context.primaryColor,
                                     ),
-                                    PopupMenuItem(
-                                      onTap: () {},
-                                      child: const Text('View'),
-                                    ),
-                                    PopupMenuItem(
-                                      onTap: () {
-                                        showAdaptiveDialog(
-                                          context: context,
-                                          builder: (context) => YesNoDialog(
-                                              title: 'Are You Sure?',
-                                              onTapYes: () {
-                                                context.read<TypeBloc>().add(
-                                                    DeleteTypeEvent(
-                                                        id: state
-                                                            .types[index].id!));
-                                              }),
-                                        );
-                                      },
-                                      child: const Text('Delete'),
-                                    )
-                                  ];
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                      )),
+                                    itemBuilder: (context) {
+                                      return [
+                                        PopupMenuItem(
+                                          child: const Text('Edit'),
+                                          onTap: () {
+                                            showAdaptiveDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return UpdateTypeDialog(
+                                                      type: state.types[index]);
+                                                });
+                                          },
+                                        ),
+                                        PopupMenuItem(
+                                          onTap: () {},
+                                          child: const Text('View'),
+                                        ),
+                                        PopupMenuItem(
+                                          onTap: () {
+                                            showAdaptiveDialog(
+                                              context: context,
+                                              builder: (context) => YesNoDialog(
+                                                  title: 'Are You Sure?',
+                                                  onTapYes: () {
+                                                    context
+                                                        .read<TypeBloc>()
+                                                        .add(DeleteTypeEvent(
+                                                            id: state
+                                                                .types[index]
+                                                                .id!));
+                                                  }),
+                                            );
+                                          },
+                                          child: const Text('Delete'),
+                                        )
+                                      ];
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          ))
+                },
               CubitStatus.loading => GridView.builder(
                   itemCount: 10,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

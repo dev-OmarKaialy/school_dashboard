@@ -95,108 +95,132 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                         );
                       },
                     ),
-                  CubitStatus.success => GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: context.isPhone
-                              ? 2
-                              : context.isTablet
-                                  ? 4
-                                  : 8,
-                          crossAxisSpacing: 25,
-                          mainAxisSpacing: 25),
-                      itemCount: state.subjects.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return SubjectDetailsScreen(
-                                    subjectId: state.subjects[index].id!);
+                  CubitStatus.success => switch (state.subjects.length) {
+                      0 => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Row(),
+                            Image.asset(
+                              'assets/noresults.png',
+                            ),
+                            Text(
+                              'There Is No Subjects Yet',
+                              style: context.textTheme.titleLarge
+                                  ?.copyWith(fontSize: FontSize.s24),
+                            ),
+                          ],
+                        ),
+                      _ => GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: context.isPhone
+                                      ? 2
+                                      : context.isTablet
+                                          ? 4
+                                          : 8,
+                                  crossAxisSpacing: 25,
+                                  mainAxisSpacing: 25),
+                          itemCount: state.subjects.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return SubjectDetailsScreen(
+                                        subjectId: state.subjects[index].id!);
+                                  },
+                                ));
                               },
-                            ));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(AppRaduis.r19),
-                              gradient: const LinearGradient(colors: [
-                                LightThemeColors.linearFirstColor,
-                                LightThemeColors.linearSecondColor,
-                                LightThemeColors.linearThirdColor,
-                              ]),
-                            ),
-                            child: Stack(
-                              children: [
-                                Center(
-                                  child: Text(
-                                    state.subjects[index].name!,
-                                    style: context.textTheme.titleMedium,
-                                  ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(AppRaduis.r19),
+                                  gradient: const LinearGradient(colors: [
+                                    LightThemeColors.linearFirstColor,
+                                    LightThemeColors.linearSecondColor,
+                                    LightThemeColors.linearThirdColor,
+                                  ]),
                                 ),
-                                Positioned(
-                                  right: 5,
-                                  child: PopupMenuButton(
-                                    iconColor: context.scaffoldBackgroundColor,
-                                    color: context.scaffoldBackgroundColor,
-                                    icon: Icon(
-                                      Icons.more_horiz_outlined,
-                                      color: context.primaryColor,
+                                child: Stack(
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        state.subjects[index].name!,
+                                        style: context.textTheme.titleMedium,
+                                      ),
                                     ),
-                                    itemBuilder: (context) {
-                                      return [
-                                        PopupMenuItem(
-                                          onTap: () {
-                                            Navigator.push(context,
-                                                MaterialPageRoute(
-                                              builder: (context) {
-                                                return SubjectDetailsScreen(
-                                                    subjectId: state
-                                                        .subjects[index].id!);
+                                    Positioned(
+                                      right: 5,
+                                      child: PopupMenuButton(
+                                        iconColor:
+                                            context.scaffoldBackgroundColor,
+                                        color: context.scaffoldBackgroundColor,
+                                        icon: Icon(
+                                          Icons.more_horiz_outlined,
+                                          color: context.primaryColor,
+                                        ),
+                                        itemBuilder: (context) {
+                                          return [
+                                            PopupMenuItem(
+                                              onTap: () {
+                                                Navigator.push(context,
+                                                    MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return SubjectDetailsScreen(
+                                                        subjectId: state
+                                                            .subjects[index]
+                                                            .id!);
+                                                  },
+                                                ));
                                               },
-                                            ));
-                                          },
-                                          child: const Text('View'),
-                                        ),
-                                        PopupMenuItem(
-                                          child: const Text('Edit'),
-                                          onTap: () {
-                                            showAdaptiveDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return UpdateSubjectDialog(
-                                                      subjectModel: state
-                                                          .subjects[index]);
-                                                });
-                                          },
-                                        ),
-                                        PopupMenuItem(
-                                          onTap: () {
-                                            showAdaptiveDialog(
-                                              context: context,
-                                              builder: (context) => YesNoDialog(
-                                                  title: 'Are You Sure?',
-                                                  onTapYes: () {
-                                                    context
-                                                        .read<SubjectBloc>()
-                                                        .add(DeleteSubjectEvent(
-                                                            id: state
-                                                                .subjects[index]
-                                                                .id!));
-                                                  }),
-                                            );
-                                          },
-                                          child: const Text('Delete'),
-                                        )
-                                      ];
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                                              child: const Text('View'),
+                                            ),
+                                            PopupMenuItem(
+                                              child: const Text('Edit'),
+                                              onTap: () {
+                                                showAdaptiveDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return UpdateSubjectDialog(
+                                                          subjectModel: state
+                                                              .subjects[index]);
+                                                    });
+                                              },
+                                            ),
+                                            PopupMenuItem(
+                                              onTap: () {
+                                                showAdaptiveDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      YesNoDialog(
+                                                          title:
+                                                              'Are You Sure?',
+                                                          onTapYes: () {
+                                                            context
+                                                                .read<
+                                                                    SubjectBloc>()
+                                                                .add(DeleteSubjectEvent(
+                                                                    id: state
+                                                                        .subjects[
+                                                                            index]
+                                                                        .id!));
+                                                          }),
+                                                );
+                                              },
+                                              child: const Text('Delete'),
+                                            )
+                                          ];
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                    },
                   _ => const SizedBox(),
                 },
               ),

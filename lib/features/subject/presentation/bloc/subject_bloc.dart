@@ -41,7 +41,9 @@ class SubjectBloc extends Bloc<SubjectEvent, SubjectState> {
     on<DeleteSubjectEvent>((event, emit) async {
       Toaster.showLoading();
       final result = await SubjectRepo().deleteSubject(event.id);
-      result.fold((l) {}, (r) {
+      result.fold((l) {
+        Toaster.showToast(l.message);
+      }, (r) {
         emit(
           state.copyWith(
             subjects: List.of(state.subjects)

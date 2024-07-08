@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:school_daashboard/core/unified_api/api_variables.dart';
-import 'package:school_daashboard/core/unified_api/delete_api.dart';
 import 'package:school_daashboard/core/unified_api/get_api.dart';
 import 'package:school_daashboard/core/unified_api/post_api.dart';
 
@@ -40,7 +39,8 @@ class SubjectDatasource {
   }
 
   Future<String> deleteSubject(int id) async {
-    final postApi = DeleteApi(
+    final postApi = PostApi(
+        body: {},
         uri: ApiVariables().deleteSubjects(id),
         fromJson: (str) {
           final result = jsonDecode(str);

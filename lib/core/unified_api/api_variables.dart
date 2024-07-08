@@ -4,8 +4,8 @@ class ApiVariables {
   /////////////
   ///General///
   /////////////
-  final _scheme = 'http';
-  final _host = "localhost";
+  final _scheme = 'https';
+  final _host = "schoolbarea.000webhostapp.com";
 
   Uri _mainUri({
     required String path,
@@ -14,7 +14,7 @@ class ApiVariables {
     final uri = Uri(
       scheme: _scheme,
       host: _host,
-      port: 8000,
+      // port: 8000,
       path: 'api/$path',
       queryParameters: queryParameters,
     );

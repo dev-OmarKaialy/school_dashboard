@@ -90,201 +90,225 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                         )
                     ],
                   ),
-                CubitStatus.success => BlocBuilder<LessonsBloc, LessonsState>(
-                    builder: (context, lessonState) {
-                      return Wrap(
-                        runSpacing: 20,
-                        spacing: 20,
+                CubitStatus.success => switch (state.subject!.lessons!.length) {
+                    0 => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          for (int i = 0; i < lessonState.lessons.length; i++)
-                            Container(
-                              decoration: BoxDecoration(
-                                  gradient: const LinearGradient(colors: [
-                                    LightThemeColors.linearThirdColor,
-                                    LightThemeColors.linearSecondColor,
-                                    LightThemeColors.linearFirstColor,
-                                  ]),
-                                  borderRadius: BorderRadius.circular(15)),
-                              width: context.isPhone
-                                  ? .9.sw
-                                  : context.isTablet
-                                      ? .45.sw
-                                      : .48.sw,
-                              child: Theme(
-                                data: ThemeData(
-                                  splashColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  dividerColor: Colors.transparent,
-                                  expansionTileTheme:
-                                      const ExpansionTileThemeData(
-                                    backgroundColor: Colors.transparent,
-                                    collapsedBackgroundColor:
-                                        Colors.transparent,
-                                  ),
-                                ),
-                                child: ExpansionTile(
-                                    expansionAnimationStyle: AnimationStyle(
-                                        curve: Curves.easeInCirc,
-                                        duration: Durations.long2),
-                                    visualDensity: VisualDensity.comfortable,
-                                    shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                            color: Colors.cyan),
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    collapsedShape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                            color: Colors.cyan),
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    title: Text(
-                                      lessonState.lessons[i].name!,
-                                      style: context.textTheme.titleLarge
-                                          ?.copyWith(fontSize: FontSize.s20),
-                                    ),
-                                    childrenPadding: const EdgeInsets.only(
-                                        bottom: 25, right: 25, left: 25),
-                                    expandedCrossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                showGeneralDialog(
-                                                    context: context,
-                                                    pageBuilder:
-                                                        (context, _, __) {
-                                                      return UpdateLessonDialog(
-                                                          lesson: lessonState
-                                                              .lessons[i]);
-                                                    });
-                                              },
-                                              icon: Icon(
-                                                Icons.edit_note_rounded,
-                                                size: 30.sp,
-                                              )),
-                                          IconButton(
-                                              onPressed: () {
-                                                showAdaptiveDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return YesNoDialog(
-                                                          title:
-                                                              'Are You Sure?',
-                                                          onTapYes: () {
-                                                            context
-                                                                .read<
-                                                                    LessonsBloc>()
-                                                                .add(DeleteLessonEvent(
-                                                                    id: lessonState
-                                                                        .lessons[
-                                                                            i]
-                                                                        .id!));
-                                                          });
-                                                    });
-                                              },
-                                              icon: Icon(
-                                                Icons.delete_outline,
-                                                color: Colors.red,
-                                                size: 30.sp,
-                                              )),
-                                        ],
+                          const Row(),
+                          Image.asset(
+                            'assets/noresults.png',
+                          ),
+                          Text(
+                            'There Is No Lessons For This Subject',
+                            style: context.textTheme.titleLarge
+                                ?.copyWith(fontSize: FontSize.s24),
+                          ),
+                        ],
+                      ),
+                    _ => BlocBuilder<LessonsBloc, LessonsState>(
+                        builder: (context, lessonState) {
+                          return Wrap(
+                            runSpacing: 20,
+                            spacing: 20,
+                            children: [
+                              for (int i = 0;
+                                  i < lessonState.lessons.length;
+                                  i++)
+                                Container(
+                                  decoration: BoxDecoration(
+                                      gradient: const LinearGradient(colors: [
+                                        LightThemeColors.linearThirdColor,
+                                        LightThemeColors.linearSecondColor,
+                                        LightThemeColors.linearFirstColor,
+                                      ]),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  width: context.isPhone
+                                      ? .9.sw
+                                      : context.isTablet
+                                          ? .45.sw
+                                          : .48.sw,
+                                  child: Theme(
+                                    data: ThemeData(
+                                      splashColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      dividerColor: Colors.transparent,
+                                      expansionTileTheme:
+                                          const ExpansionTileThemeData(
+                                        backgroundColor: Colors.transparent,
+                                        collapsedBackgroundColor:
+                                            Colors.transparent,
                                       ),
-                                      Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Text:       ',
-                                              style: context
-                                                  .textTheme.titleLarge
-                                                  ?.copyWith(
-                                                      fontSize: FontSize.s16),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                  lessonState.lessons[i].text!,
+                                    ),
+                                    child: ExpansionTile(
+                                        expansionAnimationStyle: AnimationStyle(
+                                            curve: Curves.easeInCirc,
+                                            duration: Durations.long2),
+                                        visualDensity:
+                                            VisualDensity.comfortable,
+                                        shape: RoundedRectangleBorder(
+                                            side: const BorderSide(
+                                                color: Colors.cyan),
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        collapsedShape: RoundedRectangleBorder(
+                                            side: const BorderSide(
+                                                color: Colors.cyan),
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        title: Text(
+                                          lessonState.lessons[i].name!,
+                                          style: context.textTheme.titleLarge
+                                              ?.copyWith(
+                                                  fontSize: FontSize.s20),
+                                        ),
+                                        childrenPadding: const EdgeInsets.only(
+                                            bottom: 25, right: 25, left: 25),
+                                        expandedCrossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {
+                                                    showGeneralDialog(
+                                                        context: context,
+                                                        pageBuilder:
+                                                            (context, _, __) {
+                                                          return UpdateLessonDialog(
+                                                              lesson: lessonState
+                                                                  .lessons[i]);
+                                                        });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.edit_note_rounded,
+                                                    size: 30.sp,
+                                                  )),
+                                              IconButton(
+                                                  onPressed: () {
+                                                    showAdaptiveDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return YesNoDialog(
+                                                              title:
+                                                                  'Are You Sure?',
+                                                              onTapYes: () {
+                                                                context
+                                                                    .read<
+                                                                        LessonsBloc>()
+                                                                    .add(DeleteLessonEvent(
+                                                                        id: lessonState
+                                                                            .lessons[i]
+                                                                            .id!));
+                                                              });
+                                                        });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete_outline,
+                                                    color: Colors.red,
+                                                    size: 30.sp,
+                                                  )),
+                                            ],
+                                          ),
+                                          Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Text:       ',
                                                   style: context
                                                       .textTheme.titleLarge
-                                                      ?.copyWith()),
-                                            ),
-                                          ]),
-                                      20.verticalSpace,
-                                      Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Activity:       ',
-                                              style: context
-                                                  .textTheme.titleLarge
-                                                  ?.copyWith(
-                                                      fontSize: FontSize.s16),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                  lessonState
-                                                      .lessons[i].activity!,
+                                                      ?.copyWith(
+                                                          fontSize:
+                                                              FontSize.s16),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                      lessonState
+                                                          .lessons[i].text!,
+                                                      style: context
+                                                          .textTheme.titleLarge
+                                                          ?.copyWith()),
+                                                ),
+                                              ]),
+                                          20.verticalSpace,
+                                          Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Activity:       ',
                                                   style: context
                                                       .textTheme.titleLarge
-                                                      ?.copyWith()),
-                                            ),
-                                          ]),
-                                      20.verticalSpace,
-                                      Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text('Description:       ',
+                                                      ?.copyWith(
+                                                          fontSize:
+                                                              FontSize.s16),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                      lessonState
+                                                          .lessons[i].activity!,
+                                                      style: context
+                                                          .textTheme.titleLarge
+                                                          ?.copyWith()),
+                                                ),
+                                              ]),
+                                          20.verticalSpace,
+                                          Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('Description:       ',
+                                                    style: context
+                                                        .textTheme.titleLarge
+                                                        ?.copyWith(
+                                                            fontSize:
+                                                                FontSize.s18)),
+                                                Expanded(
+                                                  child: Text(
+                                                      lessonState.lessons[i]
+                                                          .description!,
+                                                      style: context
+                                                          .textTheme.titleLarge
+                                                          ?.copyWith()),
+                                                ),
+                                              ]),
+                                          20.verticalSpace,
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Lesson Image:',
                                                 style: context
                                                     .textTheme.titleLarge
                                                     ?.copyWith(
-                                                        fontSize:
-                                                            FontSize.s18)),
-                                            Expanded(
-                                              child: Text(
-                                                  lessonState
-                                                      .lessons[i].description!,
-                                                  style: context
-                                                      .textTheme.titleLarge
-                                                      ?.copyWith()),
-                                            ),
-                                          ]),
-                                      20.verticalSpace,
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Lesson Image:',
-                                            style: context.textTheme.titleLarge
-                                                ?.copyWith(
-                                                    fontSize: FontSize.s18),
-                                          ),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            child: Image.network(
-                                              lessonState.lessons[i].image!,
-                                              width: .3.sw,
-                                              fit: BoxFit.fitWidth,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ]),
-                              ),
-                            )
-                        ],
-                      );
-                    },
-                  ),
+                                                        fontSize: FontSize.s18),
+                                              ),
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                child: Image.network(
+                                                  lessonState.lessons[i].image!,
+                                                  width: .3.sw,
+                                                  fit: BoxFit.fitWidth,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ]),
+                                  ),
+                                )
+                            ],
+                          );
+                        },
+                      )
+                  },
                 _ => const SizedBox(),
               }),
         );
