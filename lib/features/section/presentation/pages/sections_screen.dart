@@ -138,16 +138,19 @@ class _SectionsScreenState extends State<SectionsScreen> {
                                           },
                                         ),
                                         PopupMenuItem(
-                                          onTap: () {},
-                                          child: const Text('View'),
-                                        ),
-                                        PopupMenuItem(
                                           onTap: () {
                                             showAdaptiveDialog(
                                               context: context,
                                               builder: (context) => YesNoDialog(
                                                   title: 'Are You Sure?',
-                                                  onTapYes: () {}),
+                                                  onTapYes: () {
+                                                    context
+                                                        .read<SectionBloc>()
+                                                        .add(DeleteSectionEvent(
+                                                            id: state
+                                                                .sections[index]
+                                                                .id!));
+                                                  }),
                                             );
                                           },
                                           child: const Text('Delete'),

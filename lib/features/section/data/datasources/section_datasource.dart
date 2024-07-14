@@ -28,9 +28,7 @@ class SectionDatasource {
 
   Future<void> deleteSections(int id) async {
     final postApi = PostApi(
-        uri: ApiVariables().deleteSection(id),
-        body: {},
-        fromJson: showSectionModelFromJson);
+        uri: ApiVariables().deleteSection(id), body: {}, fromJson: (s) {});
     return await postApi.callRequest();
   }
 }

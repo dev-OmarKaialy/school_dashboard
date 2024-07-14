@@ -68,5 +68,6 @@ class ApiVariables {
   Uri updateSection(int id) =>
       _mainUri(path: 'section/update', queryParameters: {'id': '$id'});
 
-  Uri deleteSection(int id) => _mainUri(path: 'section/delete');
+  Uri deleteSection(int id) =>
+      _mainUri(path: 'section/delete', queryParameters: {'id': "$id"});
 }
