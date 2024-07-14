@@ -32,6 +32,12 @@ class PostApi<T> with HandlingExceptionRequest {
     // log('the token in the request header is $token'.logWhite, name: 'request manager ==> post function ');
     try {
       var headers = {
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials":
+            'true', // Required for cookies, authorization headers with HTTPS
+        "Access-Control-Allow-Headers":
+            "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         if (isAuth) 'Authorization': 'Bearer $token',
@@ -73,6 +79,10 @@ class PostApi<T> with HandlingExceptionRequest {
     } catch (e) {
       log(
         e.toString(),
+        name: 'RequestManager post function',
+      );
+      log(
+        'omar$e',
         name: 'RequestManager post function',
       );
       rethrow;

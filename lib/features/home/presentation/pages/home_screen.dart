@@ -3,6 +3,7 @@ import 'package:school_daashboard/core/config/extensions/context_extensions.dart
 import 'package:school_daashboard/core/config/theme/light_theme.dart';
 import 'package:school_daashboard/core/resources/dimension_manager.dart';
 import 'package:school_daashboard/features/home/data/models/home_items.dart';
+import 'package:school_daashboard/features/section/presentation/pages/sections_screen.dart';
 import 'package:school_daashboard/features/type/presentation/pages/types_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,9 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
         image: 'assets/classes.png',
         screen: const TypesScreen()),
     HomeItem(
-        title: 'Teachers',
+        title: 'Sections',
         image: 'assets/teachers.png',
-        screen: const SizedBox()),
+        screen: const SectionsScreen()),
     HomeItem(
         title: 'Students',
         image: 'assets/students.png',

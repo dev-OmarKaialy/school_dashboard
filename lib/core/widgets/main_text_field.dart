@@ -167,7 +167,7 @@ class _MainTextFieldState extends State<MainTextField>
                 labelStyle:
                     widget.hintTextStyle ?? context.textTheme.bodyMedium,
                 fillColor:
-                    widget.fillColor ?? LightThemeColors.linearThirdColor,
+                    widget.fillColor ?? LightThemeColors.shadowContainerColor,
                 focusColor: context.theme.primaryColor,
                 hintStyle: widget.hintTextStyle ??
                     context.textTheme.bodyMedium!.copyWith(
