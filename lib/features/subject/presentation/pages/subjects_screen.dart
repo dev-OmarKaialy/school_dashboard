@@ -43,12 +43,12 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Subjects',
+                    'واجهة المواد',
                     style: context.textTheme.titleLarge
                         ?.copyWith(fontSize: FontSize.s22),
                   ),
                   MainButton(
-                    text: ' Add',
+                    text: ' إضافة',
                     width: .1.sw,
                     onPressed: () {
                       showAdaptiveDialog(
@@ -69,7 +69,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                 child: switch (state.status) {
                   CubitStatus.failed => Center(
                       child: MainButton(
-                        text: ' Try Again!',
+                        text: ' إعادة المحاولة!',
                         onPressed: () {
                           context.read<SubjectBloc>().add(GetSubjectsEvent());
                         },
@@ -105,7 +105,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                               'assets/noresults.png',
                             ),
                             Text(
-                              'There Is No Subjects Yet',
+                              'لم يتم إضافة مواد بعد!',
                               style: context.textTheme.titleLarge
                                   ?.copyWith(fontSize: FontSize.s24),
                             ),
@@ -174,10 +174,10 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                                                   },
                                                 ));
                                               },
-                                              child: const Text('View'),
+                                              child: const Text('عرض'),
                                             ),
                                             PopupMenuItem(
-                                              child: const Text('Edit'),
+                                              child: const Text('تعديل'),
                                               onTap: () {
                                                 showAdaptiveDialog(
                                                     context: context,
@@ -195,7 +195,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                                                   builder: (context) =>
                                                       YesNoDialog(
                                                           title:
-                                                              'Are You Sure?',
+                                                              'هل أنت متأكد ؟',
                                                           onTapYes: () {
                                                             context
                                                                 .read<
@@ -208,7 +208,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                                                           }),
                                                 );
                                               },
-                                              child: const Text('Delete'),
+                                              child: const Text('حذف'),
                                             )
                                           ];
                                         },

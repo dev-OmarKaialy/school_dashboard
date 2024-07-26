@@ -5,7 +5,7 @@ class ApiVariables {
   ///General///
   /////////////
   final _scheme = 'http';
-  final _host = "localhost";
+  final _host = "schoolbarea.000webhostapp.com";
 
   Uri _mainUri({
     required String path,
@@ -14,7 +14,7 @@ class ApiVariables {
     final uri = Uri(
       scheme: _scheme,
       host: _host,
-      port: 8000,
+      // port: 8000,
       path: 'api/$path',
       queryParameters: queryParameters,
     );
@@ -70,4 +70,13 @@ class ApiVariables {
 
   Uri deleteSection(int id) =>
       _mainUri(path: 'section/delete', queryParameters: {'id': "$id"});
+/////teacher/////
+  Uri teacher() => _mainUri(path: 'teacher');
+  Uri blockTeacher(int id) =>
+      _mainUri(queryParameters: {'id': '$id'}, path: 'teacher/block');
+  Uri unblockTeacher(int id) =>
+      _mainUri(queryParameters: {'id': '$id'}, path: 'teacher/unblock');
+  Uri addTeacher() => _mainUri(path: 'teacher/add');
+  Uri updateTeacher(int id) =>
+      _mainUri(path: 'teacher/update', queryParameters: {'id': '$id'});
 }

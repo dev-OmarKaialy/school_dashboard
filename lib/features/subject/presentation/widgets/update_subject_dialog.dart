@@ -58,7 +58,7 @@ class _UpdateSubjectDialogState extends State<UpdateSubjectDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Update New Subject',
+                'تعديل المادة',
                 style: context.textTheme.titleLarge
                     ?.copyWith(fontSize: FontSize.s22),
               ),
@@ -68,27 +68,33 @@ class _UpdateSubjectDialogState extends State<UpdateSubjectDialog> {
                   children: [
                     MainTextField(
                       controller: titleController,
-                      text: 'Title:',
-                      hint: 'Enter Title',
+                      text: 'العنوان:',
+                      hint: 'عنوان المادة',
                       validator: (value) {
-                        if (value != null && value.length > 4) {
+                        if (value != null &&
+                            value.length > 4 &&
+                            value.contains(
+                                RegExp(r'[\u0621-\u064A\u0660-\u0669]'))) {
                           return null;
                         } else {
-                          return 'Enter Valid Subject Name';
+                          return 'اختر اسما مقبولا';
                         }
                       },
                     ),
                     30.verticalSpace,
                     MainTextField(
                       controller: descriptionController,
-                      text: 'Description:',
-                      hint: 'Enter Subject Description',
+                      text: 'الوصف:',
+                      hint: 'وصف المادة',
                       maxLines: 4,
                       validator: (value) {
-                        if (value != null && value.length > 12) {
+                        if (value != null &&
+                            value.length > 12 &&
+                            value.contains(
+                                RegExp(r'[\u0621-\u064A\u0660-\u0669]'))) {
                           return null;
                         } else {
-                          return 'Enter Valid Subject Name';
+                          return 'اختر وصفا مقبولا للمادة';
                         }
                       },
                     ),
@@ -99,7 +105,7 @@ class _UpdateSubjectDialogState extends State<UpdateSubjectDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MainButton(
-                      text: 'Update',
+                      text: 'تعديل',
                       onPressed: () {
                         if (formKey.currentState!.validate() &&
                             (titleController.text != widget.subjectModel.name ||
@@ -112,7 +118,7 @@ class _UpdateSubjectDialogState extends State<UpdateSubjectDialog> {
                         }
                       }),
                   MainButton(
-                      text: 'Cancel',
+                      text: 'إلغاء',
                       color: context.scaffoldBackgroundColor,
                       borderColor: context.primaryColor,
                       textColor: context.primaryColor,

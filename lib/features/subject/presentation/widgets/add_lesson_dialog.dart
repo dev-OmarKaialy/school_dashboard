@@ -55,7 +55,7 @@ class _AddLessonDialogState extends State<AddLessonDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Add New Lesson',
+                'إضافة درس جديد',
                 style: context.textTheme.titleLarge
                     ?.copyWith(fontSize: FontSize.s22),
               ),
@@ -65,27 +65,33 @@ class _AddLessonDialogState extends State<AddLessonDialog> {
                   children: [
                     MainTextField(
                       controller: titleController,
-                      text: 'Title:',
-                      hint: 'Enter Title',
+                      text: 'العنوان:',
+                      hint: 'أدخل العنوان',
                       validator: (value) {
-                        if (value != null && value.length > 4) {
+                        if (value != null &&
+                            value.length > 4 &&
+                            value.contains(
+                                RegExp(r'[\u0621-\u064A\u0660-\u0669]'))) {
                           return null;
                         } else {
-                          return 'Enter Valid Lesson Title';
+                          return 'أدخل عنوان درس مقبول';
                         }
                       },
                     ),
                     30.verticalSpace,
                     MainTextField(
                       controller: descriptionController,
-                      text: 'Description:',
-                      hint: 'Enter Subject Description',
+                      text: 'الوصف:',
+                      hint: 'أدخل وصف الدرس',
                       maxLines: 4,
                       validator: (value) {
-                        if (value != null && value.length > 12) {
+                        if (value != null &&
+                            value.length > 12 &&
+                            value.contains(
+                                RegExp(r'[\u0621-\u064A\u0660-\u0669]'))) {
                           return null;
                         } else {
-                          return 'Enter Valid Subject Name';
+                          return 'أدخل وصفا مناسبا للدرس';
                         }
                       },
                     ),
@@ -95,13 +101,16 @@ class _AddLessonDialogState extends State<AddLessonDialog> {
                         Expanded(
                           child: MainTextField(
                             controller: activityController,
-                            text: 'Activity:',
-                            hint: 'Enter Activity',
+                            text: 'النشاط:',
+                            hint: 'نشاط الدرس',
                             validator: (value) {
-                              if (value != null && value.length > 4) {
+                              if (value != null &&
+                                  value.length > 4 &&
+                                  value.contains(RegExp(
+                                      r'[\u0621-\u064A\u0660-\u0669]'))) {
                                 return null;
                               } else {
-                                return 'Enter Valid Activity Title';
+                                return 'أدخل نشاطاً مناسبا';
                               }
                             },
                           ),
@@ -110,13 +119,16 @@ class _AddLessonDialogState extends State<AddLessonDialog> {
                         Expanded(
                           child: MainTextField(
                             controller: textController,
-                            text: 'Text:',
-                            hint: 'Enter Text',
+                            text: 'النص:',
+                            hint: 'نص الدرس',
                             validator: (value) {
-                              if (value != null && value.length > 10) {
+                              if (value != null &&
+                                  value.length > 10 &&
+                                  value.contains(RegExp(
+                                      r'[\u0621-\u064A\u0660-\u0669]'))) {
                                 return null;
                               } else {
-                                return 'Enter Valid Text For Lesson';
+                                return 'أدخل نصا مقبولا للدرس';
                               }
                             },
                           ),
@@ -128,7 +140,7 @@ class _AddLessonDialogState extends State<AddLessonDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Lesson Image:',
+                          'صورة الدرس:',
                           style: context.textTheme.titleMedium,
                         ),
                         10.verticalSpace,
@@ -197,7 +209,7 @@ class _AddLessonDialogState extends State<AddLessonDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MainButton(
-                      text: 'Add',
+                      text: 'إضافة',
                       onPressed: () {
                         if (formKey.currentState!.validate() &&
                             image.value != null) {
@@ -211,13 +223,13 @@ class _AddLessonDialogState extends State<AddLessonDialog> {
                                     text: textController.text),
                               );
                         } else if (image.value == null) {
-                          Toaster.showToast('Please Add Image First');
+                          Toaster.showToast('الرجاء اختيار صورة أولاً');
                         } else {
-                          Toaster.showToast('Please Add Review All Fields');
+                          Toaster.showToast('الرجاء التحقق من جميع الحقول');
                         }
                       }),
                   MainButton(
-                      text: 'Cancel',
+                      text: 'إلغاء',
                       color: context.scaffoldBackgroundColor,
                       borderColor: context.primaryColor,
                       textColor: context.primaryColor,

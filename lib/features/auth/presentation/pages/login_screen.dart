@@ -75,14 +75,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text('Login To Your Account',
+                          Text('تسجيل الدخول الى حسابك',
                               style: context.textTheme.titleLarge
                                   ?.copyWith(color: context.primaryColor)),
                           Text(
-                              'Please enter your email and password to continue',
+                              'الرجاء إدخال البريد الالكتروني و كلمة المرور للمتابعة',
                               style: context.textTheme.titleSmall),
                           MainTextField(
-                            text: 'Email address:',
+                            text: 'البريد الالكتروني:',
                             hint: 'example@mail.com',
                             height: .08.sh,
                             textInputAction: TextInputAction.next,
@@ -91,12 +91,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (p0 != null && p0.validateEmail()) {
                                 return null;
                               } else {
-                                return 'Oops! That doesn\'t look like a valid email. Please try again.';
+                                return 'عذراً، لا يبدو هذا البريد صالحاً ، الرجاء تجربة واحد آخر';
                               }
                             },
                           ),
                           MainTextField(
-                            text: 'Password:',
+                            text: 'كلمة المرور:',
                             hint: '●●●●●●●●',
                             isPassword: true,
                             textInputAction: TextInputAction.go,
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (value != null && value.isValidPassword) {
                                 return null;
                               } else {
-                                return 'Password must be at least 8 characters long';
+                                return 'كلمة المرور يجب ان تكون على الاقل 8 أحرف او أرقام';
                               }
                             },
                           ),
@@ -121,11 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             alignment: AlignmentDirectional.topStart,
                             child: TextButton(
                               onPressed: () {},
-                              child: const Text('Forget Password?'),
+                              child: const Text('نسيت كلمة المرور؟'),
                             ),
                           ),
                           MainButton(
-                            text: 'Sign In',
+                            text: 'تسجيل الدخول',
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                 context.read<AuthBloc>().add(LoginEvent(

@@ -115,7 +115,7 @@ class Patterns {
   static String money = r'^\d{0,8}(\.\d{1,4})?$';
 
   static String email =
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+      r"^[a-zA-Z\u0621-\u064A\u0660-\u06690-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z\u0621-\u064A\u0660-\u06690-9]+\.[a-zA-Z\u0621-\u064A\u0660-\u0669]+";
 
   static String image = r'.(jpeg|jpg|gif|png|bmp)$';
 

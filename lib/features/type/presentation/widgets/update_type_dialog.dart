@@ -58,7 +58,7 @@ class _UpdateTypeDialogState extends State<UpdateTypeDialog> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Update ${widget.type.name!}',
+                'تعديل ${widget.type.name!}',
                 style: context.textTheme.titleLarge,
               ),
               20.verticalSpace,
@@ -69,7 +69,7 @@ class _UpdateTypeDialogState extends State<UpdateTypeDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Text('Toatl Amount'),
+                        const Text('القيمة الكلية'),
                         const Spacer(),
                         Column(
                           children: [
@@ -138,7 +138,7 @@ class _UpdateTypeDialogState extends State<UpdateTypeDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MainButton(
-                      text: 'Update',
+                      text: 'تعديل',
                       onPressed: () {
                         context.read<TypeBloc>().add(
                               UpdateTypeEvent(
@@ -146,7 +146,7 @@ class _UpdateTypeDialogState extends State<UpdateTypeDialog> {
                             );
                       }),
                   MainButton(
-                      text: 'Cancel',
+                      text: 'إلغاء',
                       color: context.scaffoldBackgroundColor,
                       borderColor: context.primaryColor,
                       textColor: context.primaryColor,

@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:school_daashboard/core/resources/cubit_status.dart';
 import 'package:school_daashboard/core/resources/type_defs.dart';
 import 'package:school_daashboard/features/section/data/repositories/sections_repo.dart';
-import 'package:school_daashboard/features/type/data/models/index_type_model.dart';
 
 import '../../data/models/section_model.dart';
 

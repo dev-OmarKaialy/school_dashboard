@@ -2,11 +2,13 @@ import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_daashboard/core/global_functions.dart';
+import 'package:school_daashboard/features/notification/presentation/pages/send_notification_screen.dart';
 import 'package:school_daashboard/features/splash/presentation/pages/splash_screen.dart';
 
 import '../../../../core/config/extensions/context_extensions.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../../../subject/presentation/pages/subjects_screen.dart';
+import '../../../teacher/presentation/pages/teachers_screen.dart';
 import '../cubit/main_cubit.dart';
 
 class MainScreen extends StatelessWidget {
@@ -27,7 +29,7 @@ class MainScreen extends StatelessWidget {
                 selectedTextColor: context.primaryColor,
                 unselectedTextColor: Colors.grey[700]!,
                 selectedIconColor: context.primaryColor,
-                toggleTitle: 'Collapse',
+                toggleTitle: 'تصغير',
                 selectedIconBox: context.scaffoldBackgroundColor,
                 sidebarBoxShadow: [
                   BoxShadow(
@@ -37,47 +39,47 @@ class MainScreen extends StatelessWidget {
                 ],
                 items: [
                   CollapsibleItem(
-                    text: 'Home',
+                    text: 'الرئيسية',
                     icon: Icons.home,
                     onPressed: () {
                       context.read<MainCubit>().changeIndex(0);
                     },
                     isSelected: state.index == 0,
-                    onHold: () => ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text("Home"))),
+                    onHold: () => ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("الرئيسية"))),
                   ),
                   CollapsibleItem(
-                    text: 'Classes',
+                    text: 'الصفوف',
                     icon: Icons.school_outlined,
                     onPressed: () {
                       context.read<MainCubit>().changeIndex(1);
                     },
                     isSelected: state.index == 1,
                     onHold: () => ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text("Classes"))),
+                        .showSnackBar(const SnackBar(content: Text("الصفوف"))),
                   ),
                   CollapsibleItem(
-                    text: 'Teachers',
+                    text: 'المعلمين',
                     icon: Icons.manage_accounts_sharp,
                     onPressed: () {
                       context.read<MainCubit>().changeIndex(2);
                     },
                     isSelected: state.index == 2,
                     onHold: () => ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Teachers"))),
+                        const SnackBar(content: Text("المعلمين"))),
                   ),
                   CollapsibleItem(
-                    text: 'Students',
-                    icon: Icons.people_outline,
+                    text: 'إرسال إشعار',
+                    icon: Icons.notification_add_rounded,
                     onPressed: () {
                       context.read<MainCubit>().changeIndex(3);
                     },
                     isSelected: state.index == 3,
                     onHold: () => ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Students"))),
+                        const SnackBar(content: Text("إرسال إشعار"))),
                   ),
                   CollapsibleItem(
-                    text: 'Log Out',
+                    text: 'تسجيل الخروج',
                     icon: Icons.logout_rounded,
                     onPressed: () async {
                       print('pressed');
@@ -95,8 +97,8 @@ class MainScreen extends StatelessWidget {
                       );
                     },
                     isSelected: state.index == 1000,
-                    onHold: () => ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text("Log Out"))),
+                    onHold: () => ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("تسجيل الخروج"))),
                   ),
                 ],
                 body: IndexedStack(
@@ -104,6 +106,8 @@ class MainScreen extends StatelessWidget {
                   children: const [
                     HomeScreen(),
                     SubjectsScreen(),
+                    TeachersScreen(),
+                    SendNotificationScreen(),
                   ],
                 )),
           );

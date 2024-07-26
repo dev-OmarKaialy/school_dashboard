@@ -16,19 +16,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final list = [
     HomeItem(
-        title: 'Classes',
+        title: 'الصفوف',
         image: 'assets/classes.png',
         screen: const TypesScreen()),
     HomeItem(
-        title: 'Sections',
+        title: 'الشعب',
         image: 'assets/teachers.png',
         screen: const SectionsScreen()),
     HomeItem(
-        title: 'Students',
+        title: 'الطلاب',
         image: 'assets/students.png',
         screen: const SizedBox()),
     HomeItem(
-        title: 'Statistics',
+        title: 'الاحصائيات',
         image: 'assets/statistics.png',
         screen: const SizedBox()),
   ];

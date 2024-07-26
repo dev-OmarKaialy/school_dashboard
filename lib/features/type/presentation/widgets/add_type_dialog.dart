@@ -52,14 +52,14 @@ class _AddTypeDialogState extends State<AddTypeDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Add Type', style: context.textTheme.titleLarge),
+              Text('إضافة صف', style: context.textTheme.titleLarge),
               MainTextField(
-                text: 'Name',
+                text: 'الاسم',
                 controller: nameController,
               ),
               20.verticalSpace,
               MainTextField(
-                text: 'Description',
+                text: 'الوصف',
                 controller: descriptionController,
               ),
               20.verticalSpace,
@@ -70,7 +70,7 @@ class _AddTypeDialogState extends State<AddTypeDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Text('Toatl Amount'),
+                        const Text('القيمة الكلية'),
                         const Spacer(),
                         Column(
                           children: [
@@ -139,7 +139,7 @@ class _AddTypeDialogState extends State<AddTypeDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MainButton(
-                      text: 'Add',
+                      text: 'إضافة',
                       onPressed: () {
                         context.read<TypeBloc>().add(AddTypeEvent(
                             description: descriptionController.text,
@@ -147,7 +147,7 @@ class _AddTypeDialogState extends State<AddTypeDialog> {
                             totalAmount: x.value));
                       }),
                   MainButton(
-                      text: 'Cancel',
+                      text: 'إلغاء',
                       color: context.scaffoldBackgroundColor,
                       borderColor: context.primaryColor,
                       textColor: context.primaryColor,

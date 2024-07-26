@@ -6,6 +6,7 @@ import 'package:school_daashboard/features/auth/presentation/bloc/auth_bloc.dart
 import 'package:school_daashboard/features/section/presentation/bloc/section_bloc.dart';
 import 'package:school_daashboard/features/subject/presentation/bloc/lessons_bloc.dart';
 import 'package:school_daashboard/features/subject/presentation/bloc/subject_bloc.dart';
+import 'package:school_daashboard/features/teacher/presentation/bloc/teacher_bloc.dart';
 
 import 'core/config/theme/dark_theme.dart';
 import 'core/config/theme/light_theme.dart';
@@ -30,6 +31,9 @@ void main() {
       BlocProvider(
         create: (context) => TypeBloc(),
       ),
+      BlocProvider(
+        create: (context) => TeacherBloc(),
+      ),
     ],
     child: const MainApp(),
   ));
@@ -48,14 +52,17 @@ class MainApp extends StatelessWidget {
       },
       ensureScreenSize: true,
       splitScreenMode: false,
-      builder: (context, child) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: LightTheme.getTheme(),
-        darkTheme: DarkTheme.getTheme(),
-        themeMode: ThemeMode.light,
-        builder: BotToastInit(),
-        home: const SplashScreen(),
-        navigatorObservers: [BotToastNavigatorObserver()],
+      builder: (context, child) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: LightTheme.getTheme(),
+          darkTheme: DarkTheme.getTheme(),
+          themeMode: ThemeMode.light,
+          builder: BotToastInit(),
+          home: const SplashScreen(),
+          navigatorObservers: [BotToastNavigatorObserver()],
+        ),
       ),
     );
   }

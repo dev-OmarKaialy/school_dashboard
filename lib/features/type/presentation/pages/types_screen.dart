@@ -37,12 +37,12 @@ class _TypesScreenState extends State<TypesScreen> {
         backgroundColor: LightThemeColors.linearThirdColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
-        title: const Text('Types Screen'),
+        title: const Text('واجهة الصفوف'),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: MainButton(
-              text: ' Add',
+              text: ' إضافة',
               width: .1.sw,
               onPressed: () {
                 showAdaptiveDialog(
@@ -81,7 +81,7 @@ class _TypesScreenState extends State<TypesScreen> {
                           'assets/noresults.png',
                         ),
                         Text(
-                          'There Is No Types Yet',
+                          'لم يتم إضافة صفوف بعد!',
                           style: context.textTheme.titleLarge
                               ?.copyWith(fontSize: FontSize.s24),
                         ),
@@ -116,7 +116,7 @@ class _TypesScreenState extends State<TypesScreen> {
                                     style: context.textTheme.titleLarge,
                                   ),
                                   subtitle: Text(
-                                    'Total Amount: ${state.types[index].totalAmount!}',
+                                    'القيمة الكلية: ${state.types[index].totalAmount!}',
                                     style: context.textTheme.bodySmall,
                                   ),
                                 ),
@@ -132,7 +132,7 @@ class _TypesScreenState extends State<TypesScreen> {
                                     itemBuilder: (context) {
                                       return [
                                         PopupMenuItem(
-                                          child: const Text('Edit'),
+                                          child: const Text('تعديل'),
                                           onTap: () {
                                             showAdaptiveDialog(
                                                 context: context,
@@ -144,14 +144,14 @@ class _TypesScreenState extends State<TypesScreen> {
                                         ),
                                         PopupMenuItem(
                                           onTap: () {},
-                                          child: const Text('View'),
+                                          child: const Text('عرض'),
                                         ),
                                         PopupMenuItem(
                                           onTap: () {
                                             showAdaptiveDialog(
                                               context: context,
                                               builder: (context) => YesNoDialog(
-                                                  title: 'Are You Sure?',
+                                                  title: 'هل أنت متأكد؟',
                                                   onTapYes: () {
                                                     context
                                                         .read<TypeBloc>()
@@ -162,7 +162,7 @@ class _TypesScreenState extends State<TypesScreen> {
                                                   }),
                                             );
                                           },
-                                          child: const Text('Delete'),
+                                          child: const Text('حذف'),
                                         )
                                       ];
                                     },

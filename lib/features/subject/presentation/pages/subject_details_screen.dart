@@ -52,12 +52,12 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(10))),
             title: Text(
-                'Subject ${state.showStatus == CubitStatus.success ? state.subject?.name : ''}'),
+                'مادة ${state.showStatus == CubitStatus.success ? state.subject?.name : ''}'),
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MainButton(
-                  text: ' Add',
+                  text: ' إضافة درس',
                   width: .1.sw,
                   onPressed: () {
                     showGeneralDialog(
@@ -100,7 +100,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                             'assets/noresults.png',
                           ),
                           Text(
-                            'There Is No Lessons For This Subject',
+                            'لا يوجد دروس بعد في هذه المادة',
                             style: context.textTheme.titleLarge
                                 ?.copyWith(fontSize: FontSize.s24),
                           ),
@@ -194,7 +194,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                         builder: (context) {
                                                           return YesNoDialog(
                                                               title:
-                                                                  'Are You Sure?',
+                                                                  'هل أنت متأكد ؟',
                                                               onTapYes: () {
                                                                 context
                                                                     .read<
@@ -218,7 +218,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'Text:       ',
+                                                  'النص:       ',
                                                   style: context
                                                       .textTheme.titleLarge
                                                       ?.copyWith(
@@ -240,7 +240,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'Activity:       ',
+                                                  'النشاط:       ',
                                                   style: context
                                                       .textTheme.titleLarge
                                                       ?.copyWith(
@@ -261,7 +261,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text('Description:       ',
+                                                Text('الوصف:       ',
                                                     style: context
                                                         .textTheme.titleLarge
                                                         ?.copyWith(
@@ -284,7 +284,7 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Lesson Image:',
+                                                'الصورة:',
                                                 style: context
                                                     .textTheme.titleLarge
                                                     ?.copyWith(

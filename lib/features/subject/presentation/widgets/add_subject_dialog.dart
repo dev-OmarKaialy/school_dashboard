@@ -49,7 +49,7 @@ class _AddSubjectDialogState extends State<AddSubjectDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Add New Subject',
+                'إضافة مادة جديدة',
                 style: context.textTheme.titleLarge
                     ?.copyWith(fontSize: FontSize.s22),
               ),
@@ -59,27 +59,33 @@ class _AddSubjectDialogState extends State<AddSubjectDialog> {
                   children: [
                     MainTextField(
                       controller: titleController,
-                      text: 'Title:',
-                      hint: 'Enter Title',
+                      text: 'العنوان:',
+                      hint: 'عنوان المادة',
                       validator: (value) {
-                        if (value != null && value.length > 4) {
+                        if (value != null &&
+                            value.length > 4 &&
+                            value.contains(
+                                RegExp(r'[\u0621-\u064A\u0660-\u0669]'))) {
                           return null;
                         } else {
-                          return 'Enter Valid Subject Name';
+                          return 'أدخل اسما مقبولا للمادة';
                         }
                       },
                     ),
                     30.verticalSpace,
                     MainTextField(
                       controller: descriptionController,
-                      text: 'Description:',
-                      hint: 'Enter Subject Description',
+                      text: 'الوصف:',
+                      hint: 'وصف المادة',
                       maxLines: 4,
                       validator: (value) {
-                        if (value != null && value.length > 12) {
+                        if (value != null &&
+                            value.length > 12 &&
+                            value.contains(
+                                RegExp(r'[\u0621-\u064A\u0660-\u0669]'))) {
                           return null;
                         } else {
-                          return 'Enter Valid Subject Name';
+                          return 'أدخل وصفا مقبولا للمادة';
                         }
                       },
                     ),
@@ -90,7 +96,7 @@ class _AddSubjectDialogState extends State<AddSubjectDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MainButton(
-                      text: 'Add',
+                      text: 'إضافة',
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           context.read<SubjectBloc>().add(AddSubjectsEvent(
@@ -99,7 +105,7 @@ class _AddSubjectDialogState extends State<AddSubjectDialog> {
                         }
                       }),
                   MainButton(
-                      text: 'Cancel',
+                      text: 'إلغاء',
                       color: context.scaffoldBackgroundColor,
                       borderColor: context.primaryColor,
                       textColor: context.primaryColor,

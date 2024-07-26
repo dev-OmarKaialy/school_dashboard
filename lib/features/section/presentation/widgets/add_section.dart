@@ -55,31 +55,37 @@ class _AddSectionDialogState extends State<AddSectionDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  widget.section == null ? 'Add Section' : 'Update Section',
+                  widget.section == null ? 'إضافة شعبة جديدة' : 'تعديل الشعبة',
                   style: context.textTheme.titleLarge,
                 ),
                 MainTextField(
                   controller: nameController,
-                  hint: 'Section Title',
-                  text: 'name:',
+                  hint: 'عنوان الشعبة',
+                  text: 'العنوان:',
                   validator: (value) {
-                    if (value != null && value.length > 4) {
+                    if (value != null &&
+                        value.length > 4 &&
+                        value.contains(
+                            RegExp(r'[\u0621-\u064A\u0660-\u0669]'))) {
                       return null;
                     } else {
-                      return 'Please Add A Valid Title';
+                      return 'الرجاء إدخال اسم مقبول';
                     }
                   },
                 ),
                 MainTextField(
                   controller: descriptionController,
-                  hint: 'Section Description',
-                  text: 'description:',
+                  hint: 'وصف الشعبة',
+                  text: 'الوصف:',
                   maxLines: 5,
                   validator: (value) {
-                    if (value != null && value.length > 10) {
+                    if (value != null &&
+                        value.length > 10 &&
+                        value.contains(
+                            RegExp(r'[\u0621-\u064A\u0660-\u0669]'))) {
                       return null;
                     } else {
-                      return 'Please Add A Valid Description';
+                      return 'الرجاء ادخال وصف مقبول';
                     }
                   },
                 ),
@@ -87,7 +93,7 @@ class _AddSectionDialogState extends State<AddSectionDialog> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MainButton(
-                        text: widget.section == null ? 'Add' : 'Update',
+                        text: widget.section == null ? 'إضافة' : 'تعديل',
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             context.read<SectionBloc>().add(
@@ -109,7 +115,7 @@ class _AddSectionDialogState extends State<AddSectionDialog> {
                           }
                         }),
                     MainButton(
-                        text: 'Cancel',
+                        text: 'إلغاء',
                         color: context.scaffoldBackgroundColor,
                         borderColor: context.primaryColor,
                         textColor: context.primaryColor,

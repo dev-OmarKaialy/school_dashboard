@@ -36,12 +36,12 @@ class _SectionsScreenState extends State<SectionsScreen> {
         backgroundColor: LightThemeColors.linearThirdColor,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
-        title: const Text('Sections Screen'),
+        title: const Text('واجهة الشعب'),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: MainButton(
-              text: ' Add',
+              text: ' إضافة',
               width: .1.sw,
               onPressed: () {
                 showAdaptiveDialog(
@@ -126,7 +126,7 @@ class _SectionsScreenState extends State<SectionsScreen> {
                                     itemBuilder: (context) {
                                       return [
                                         PopupMenuItem(
-                                          child: const Text('Edit'),
+                                          child: const Text('تعديل'),
                                           onTap: () {
                                             showAdaptiveDialog(
                                                 context: context,
@@ -142,7 +142,7 @@ class _SectionsScreenState extends State<SectionsScreen> {
                                             showAdaptiveDialog(
                                               context: context,
                                               builder: (context) => YesNoDialog(
-                                                  title: 'Are You Sure?',
+                                                  title: 'هل أنت متأكد؟',
                                                   onTapYes: () {
                                                     context
                                                         .read<SectionBloc>()
@@ -153,7 +153,7 @@ class _SectionsScreenState extends State<SectionsScreen> {
                                                   }),
                                             );
                                           },
-                                          child: const Text('Delete'),
+                                          child: const Text('حذف'),
                                         )
                                       ];
                                     },
