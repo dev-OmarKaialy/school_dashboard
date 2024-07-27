@@ -6,3 +6,14 @@ abstract class NotificationEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class SendNotification extends NotificationEvent {
+  final String title;
+  final String description;
+  final String target;
+  const SendNotification({
+    required this.title,
+    required this.description,
+    required this.target,
+  });
+}

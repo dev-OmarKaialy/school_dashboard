@@ -6,3 +6,12 @@ abstract class UsersEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class ToggleBlockUserEvent extends UsersEvent {
+  final int id;
+  const ToggleBlockUserEvent({
+    required this.id,
+  });
+}
+
+class GetUsersEvent extends UsersEvent {}

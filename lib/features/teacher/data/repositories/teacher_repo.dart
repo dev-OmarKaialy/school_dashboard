@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:school_daashboard/core/resources/type_defs.dart';
 import 'package:school_daashboard/features/teacher/data/datasources/teacher_datasource.dart';
 import 'package:school_daashboard/features/teacher/data/models/teacher_model.dart';
 
@@ -22,19 +21,6 @@ class TeacherRepo with HandlingExceptionManager {
   Future<Either<Failure, void>> unblockTeacher(int id) async {
     return wrapHandling(tryCall: () async {
       return Right(await TeacherDatasource().unblockTeacher(id));
-    });
-  }
-
-  Future<Either<Failure, ShowTeachersModel>> addTeacher(BodyMap body) async {
-    return wrapHandling(tryCall: () async {
-      return Right(await TeacherDatasource().addTeacher(body));
-    });
-  }
-
-  Future<Either<Failure, ShowTeachersModel>> updateTeacher(
-      BodyMap body, int id) async {
-    return wrapHandling(tryCall: () async {
-      return Right(await TeacherDatasource().updateTeacher(body, id));
     });
   }
 }

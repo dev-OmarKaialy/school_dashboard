@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_daashboard/core/config/extensions/context_extensions.dart';
-import 'package:school_daashboard/core/config/theme/light_theme.dart';
-import 'package:school_daashboard/core/resources/cubit_status.dart';
-import 'package:school_daashboard/core/widgets/flutter_switch.dart';
-import 'package:school_daashboard/core/widgets/main_error_widget.dart';
-import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
-import 'package:school_daashboard/features/teacher/presentation/bloc/teacher_bloc.dart';
+import 'package:school_daashboard/features/users/presentation/bloc/users_bloc.dart';
 
+import '../../../../core/config/theme/light_theme.dart';
+import '../../../../core/resources/cubit_status.dart';
 import '../../../../core/resources/font_manager.dart';
+import '../../../../core/widgets/flutter_switch.dart';
+import '../../../../core/widgets/main_error_widget.dart';
+import '../../../../core/widgets/shimmer_widget.dart';
 
-class TeachersScreen extends StatefulWidget {
-  const TeachersScreen({super.key});
+class UsersScreen extends StatefulWidget {
+  const UsersScreen({super.key});
 
   @override
-  State<TeachersScreen> createState() => TeachersScreenState();
+  State<UsersScreen> createState() => UsersScreenState();
 }
 
-class TeachersScreenState extends State<TeachersScreen> {
+class UsersScreenState extends State<UsersScreen> {
   @override
   void initState() {
-    context.read<TeacherBloc>().add(IndexTeachersEvent());
+    context.read<UsersBloc>().add(GetUsersEvent());
     super.initState();
   }
 
@@ -30,19 +30,19 @@ class TeachersScreenState extends State<TeachersScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Teachers Screen'),
+        title: const Text('الطلاب'),
       ),
-      body: BlocBuilder<TeacherBloc, TeacherState>(
+      body: BlocBuilder<UsersBloc, UsersState>(
         builder: (context, state) {
-          return switch (state.indexStatus) {
+          return switch (state.status) {
             CubitStatus.failed => MainErrorWidget(onPressed: () {
-                context.read<TeacherBloc>().add(IndexTeachersEvent());
+                context.read<UsersBloc>().add(GetUsersEvent());
               }),
             CubitStatus.success => Wrap(
                 runSpacing: 20,
                 spacing: 20,
                 children: [
-                  for (int index = 0; index < state.teachers.length; index++)
+                  for (int index = 0; index < state.users.length; index++)
                     Container(
                         decoration: BoxDecoration(
                             gradient: const LinearGradient(colors: [
@@ -74,23 +74,22 @@ class TeachersScreenState extends State<TeachersScreen> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25.r)),
                                 title: Text(
-                                  state.teachers[index].name!,
+                                  state.users[index].className!,
                                   style: context.textTheme.titleLarge
                                       ?.copyWith(fontSize: FontSize.s20),
                                 ),
                                 children: [
                                   Row(
                                     children: [
-                                      const Text('Status: '),
+                                      const Text('الحالة: '),
                                       FlutterSwitch(
-                                        value: state.teachers[index].block == 0,
+                                        value: state.users[index].block == 0,
                                         activeColor: Colors.green,
                                         inactiveColor: Colors.red,
                                         onToggle: (v) {
-                                          context.read<TeacherBloc>().add(
-                                              BlockTeachersEvent(
-                                                  id: state
-                                                      .teachers[index].id!));
+                                          context.read<UsersBloc>().add(
+                                              ToggleBlockUserEvent(
+                                                  id: state.users[index].id!));
                                         },
                                       ),
                                     ],
@@ -99,7 +98,7 @@ class TeachersScreenState extends State<TeachersScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text('Image: '),
+                                      const Text('الصورة: '),
                                       Container(
                                         width: 80.w,
                                         clipBehavior: Clip.hardEdge,
@@ -109,7 +108,7 @@ class TeachersScreenState extends State<TeachersScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(15)),
                                         child: Image.network(
-                                            state.teachers[index].image!),
+                                            state.users[index].image!),
                                       ),
                                     ],
                                   ),
@@ -118,8 +117,8 @@ class TeachersScreenState extends State<TeachersScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text('Email: '),
-                                      Text(state.teachers[index].email ?? ''),
+                                      const Text('رقم الهاتف: '),
+                                      Text(state.users[index].phone!),
                                     ],
                                   ),
                                   10.verticalSpace,
@@ -127,9 +126,9 @@ class TeachersScreenState extends State<TeachersScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text('Specility: '),
-                                      Text(
-                                          state.teachers[index].specilty ?? ''),
+                                      const Text('العنوان: '),
+                                      Text(state.users[index].address
+                                          .toString()),
                                     ],
                                   ),
                                 ])))
