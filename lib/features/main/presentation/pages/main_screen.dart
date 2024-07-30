@@ -8,7 +8,6 @@ import 'package:school_daashboard/features/splash/presentation/pages/splash_scre
 import '../../../../core/config/extensions/context_extensions.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../../../subject/presentation/pages/subjects_screen.dart';
-import '../../../teacher/presentation/pages/teachers_screen.dart';
 import '../cubit/main_cubit.dart';
 
 class MainScreen extends StatelessWidget {
@@ -59,22 +58,12 @@ class MainScreen extends StatelessWidget {
                         .showSnackBar(const SnackBar(content: Text("الصفوف"))),
                   ),
                   CollapsibleItem(
-                    text: 'المعلمين',
-                    icon: Icons.manage_accounts_sharp,
+                    text: 'إرسال إشعار',
+                    icon: Icons.notification_add_rounded,
                     onPressed: () {
                       context.read<MainCubit>().changeIndex(2);
                     },
                     isSelected: state.index == 2,
-                    onHold: () => ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("المعلمين"))),
-                  ),
-                  CollapsibleItem(
-                    text: 'إرسال إشعار',
-                    icon: Icons.notification_add_rounded,
-                    onPressed: () {
-                      context.read<MainCubit>().changeIndex(3);
-                    },
-                    isSelected: state.index == 3,
                     onHold: () => ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("إرسال إشعار"))),
                   ),
@@ -106,7 +95,6 @@ class MainScreen extends StatelessWidget {
                   children: const [
                     HomeScreen(),
                     SubjectsScreen(),
-                    TeachersScreen(),
                     SendNotificationScreen(),
                   ],
                 )),

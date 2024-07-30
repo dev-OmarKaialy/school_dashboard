@@ -7,6 +7,7 @@ import 'package:school_daashboard/features/section/presentation/pages/sections_s
 import 'package:school_daashboard/features/type/presentation/pages/types_screen.dart';
 
 import '../../../programs/presentation/pages/programs_screen.dart';
+import '../../../teacher/presentation/pages/teachers_screen.dart';
 import '../../../users/presentation/pages/user_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,12 +25,17 @@ class _HomeScreenState extends State<HomeScreen> {
         screen: const TypesScreen()),
     HomeItem(
         title: 'الشعب',
-        image: 'assets/teachers.png',
+        image: 'assets/sections.png',
         screen: const SectionsScreen()),
     HomeItem(
         title: 'الطلاب',
         image: 'assets/students.png',
         screen: const UsersScreen()),
+    HomeItem(
+      title: 'المعلمين',
+      image: 'assets/teachers.png',
+      screen: const TeachersScreen(),
+    ),
     HomeItem(
         title: 'البرامج',
         image: 'assets/statistics.png',
