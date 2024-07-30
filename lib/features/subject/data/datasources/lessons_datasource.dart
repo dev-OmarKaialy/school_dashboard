@@ -6,9 +6,8 @@ import 'package:school_daashboard/features/subject/data/models/lessons_model.dar
 
 class LessonsDatasource {
   Future<String> deleteLesson(int id) async {
-    final deleteApi = PostApi(
+    final deleteApi = GetApi(
       uri: ApiVariables().deleteLessons(id),
-      body: {},
       fromJson: (body) {
         return 'success';
       },

@@ -69,5 +69,19 @@ class TypeBloc extends Bloc<TypeEvent, TypeState> {
                   r.data!));
       });
     });
+    on<AssignTypeToSection>((event, emit) async {
+      Toaster.showLoading();
+      final result =
+          await TypeRepoImpl().assignTypesToSection(event.id, event.sid);
+      result.fold((l) {
+        Toaster.showToast(l.message, isError: true);
+      }, (r) {
+        emit(state.copyWith(
+            types: List.of(state.types)
+              ..[state.types.lastIndexWhere((e) => e.id == event.id)] =
+                  r.data!));
+      });
+      Toaster.closeLoading();
+    });
   }
 }

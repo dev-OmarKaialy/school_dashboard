@@ -30,4 +30,11 @@ class TypeRepoImpl with HandlingExceptionManager {
       return Right(await TypeDatasource().updateType(body));
     });
   }
+
+  Future<Either<Failure, ShowTypesResponseModel>> assignTypesToSection(
+      int id, int sid) async {
+    return wrapHandling(tryCall: () async {
+      return Right(await TypeDatasource().assignTypeToSection(id, sid));
+    });
+  }
 }

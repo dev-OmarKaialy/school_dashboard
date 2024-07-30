@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_daashboard/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:school_daashboard/features/notification/presentation/bloc/notification_bloc.dart';
+import 'package:school_daashboard/features/programs/presentation/bloc/programs_bloc.dart';
 import 'package:school_daashboard/features/section/presentation/bloc/section_bloc.dart';
 import 'package:school_daashboard/features/subject/presentation/bloc/lessons_bloc.dart';
 import 'package:school_daashboard/features/subject/presentation/bloc/subject_bloc.dart';
@@ -22,25 +23,28 @@ void main() {
         create: (context) => AuthBloc(),
       ),
       BlocProvider(
-        create: (context) => SubjectBloc(),
+        create: (context) => SubjectBloc()..add(GetSubjectsEvent()),
       ),
       BlocProvider(
-        create: (context) => LessonsBloc(),
+        create: (context) => LessonsBloc()..add(IndexLessonsEvent()),
       ),
       BlocProvider(
-        create: (context) => SectionBloc(),
+        create: (context) => SectionBloc()..add(IndexSectionsEvent()),
       ),
       BlocProvider(
-        create: (context) => TypeBloc(),
+        create: (context) => TypeBloc()..add(IndexTypesEvent()),
       ),
       BlocProvider(
-        create: (context) => TeacherBloc(),
+        create: (context) => TeacherBloc()..add(IndexTeachersEvent()),
       ),
       BlocProvider(
         create: (context) => NotificationBloc(),
       ),
       BlocProvider(
-        create: (context) => UsersBloc(),
+        create: (context) => ProgramsBloc()..add(IndexProgramsEvent()),
+      ),
+      BlocProvider(
+        create: (context) => UsersBloc()..add(GetUsersEvent()),
       ),
     ],
     child: const MainApp(),

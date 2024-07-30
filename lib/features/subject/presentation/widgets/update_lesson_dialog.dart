@@ -239,12 +239,13 @@ class _UpdateLessonDialogState extends State<UpdateLessonDialog> {
                             image.value != null) {
                           context.read<LessonsBloc>().add(
                                 AddLessonEvent(
-                                    activity: activityController.text,
-                                    description: descriptionController.text,
-                                    image: base64Encode(image.value!),
-                                    name: titleController.text,
-                                    subjectId: widget.lesson.subjectId!,
-                                    text: textController.text),
+                                  description: descriptionController.text,
+                                  image: base64Encode(image.value!),
+                                  video: base64Encode(image.value!),
+                                  file: base64Encode(image.value!),
+                                  name: titleController.text,
+                                  subjectId: widget.lesson.subjectId!,
+                                ),
                               );
                         } else if (image.value == null) {
                           Toaster.showToast('الرجاء اختيار صورة أولا');

@@ -11,6 +11,12 @@ part 'lessons_state.dart';
 
 class LessonsBloc extends Bloc<LessonsEvent, LessonsState> {
   LessonsBloc() : super(LessonsState()) {
+    on<IndexLessonsEvent>((event, emit) async {
+      final result = await LessonRepo().indexLessons();
+      result.fold((l) {}, (r) {
+        emit(state.copyWith(tlessons: r.data));
+      });
+    });
     on<AddLocalLessons>((event, emit) {
       emit(state.copyWith(lessons: event.lessons));
     });
@@ -32,10 +38,10 @@ class LessonsBloc extends Bloc<LessonsEvent, LessonsState> {
       emit(state.copyWith(addStatus: CubitStatus.loading));
       final result = await LessonRepo().storeLessons({
         'name': event.name,
-        'text': event.text,
         'description': event.description,
         'image': event.image,
-        'activity': event.activity,
+        'video': event.video,
+        'file': event.file,
         'subject_id': event.subjectId,
       });
       result.fold((l) {

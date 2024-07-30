@@ -8,7 +8,6 @@ import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
 import 'package:school_daashboard/core/widgets/yes_no_dialog.dart';
 import 'package:school_daashboard/features/subject/presentation/bloc/subject_bloc.dart';
 import 'package:school_daashboard/features/subject/presentation/widgets/add_lesson_dialog.dart';
-import 'package:school_daashboard/features/subject/presentation/widgets/update_lesson_dialog.dart';
 
 import '../../../../core/config/theme/light_theme.dart';
 import '../../../../core/widgets/main_button.dart';
@@ -172,21 +171,21 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                             children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    showGeneralDialog(
-                                                        context: context,
-                                                        pageBuilder:
-                                                            (context, _, __) {
-                                                          return UpdateLessonDialog(
-                                                              lesson: lessonState
-                                                                  .lessons[i]);
-                                                        });
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.edit_note_rounded,
-                                                    size: 30.sp,
-                                                  )),
+                                              // IconButton(
+                                              //     onPressed: () {
+                                              //       showGeneralDialog(
+                                              //           context: context,
+                                              //           pageBuilder:
+                                              //               (context, _, __) {
+                                              //             return UpdateLessonDialog(
+                                              //                 lesson: lessonState
+                                              //                     .lessons[i]);
+                                              //           });
+                                              //     },
+                                              //     icon: Icon(
+                                              //       Icons.edit_note_rounded,
+                                              //       size: 30.sp,
+                                              //     )),
                                               IconButton(
                                                   onPressed: () {
                                                     showAdaptiveDialog(
@@ -213,50 +212,6 @@ class _SubjectDetailsScreenState extends State<SubjectDetailsScreen> {
                                                   )),
                                             ],
                                           ),
-                                          Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'النص:       ',
-                                                  style: context
-                                                      .textTheme.titleLarge
-                                                      ?.copyWith(
-                                                          fontSize:
-                                                              FontSize.s16),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                      lessonState
-                                                          .lessons[i].text!,
-                                                      style: context
-                                                          .textTheme.titleLarge
-                                                          ?.copyWith()),
-                                                ),
-                                              ]),
-                                          20.verticalSpace,
-                                          Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'النشاط:       ',
-                                                  style: context
-                                                      .textTheme.titleLarge
-                                                      ?.copyWith(
-                                                          fontSize:
-                                                              FontSize.s16),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                      lessonState
-                                                          .lessons[i].activity!,
-                                                      style: context
-                                                          .textTheme.titleLarge
-                                                          ?.copyWith()),
-                                                ),
-                                              ]),
-                                          20.verticalSpace,
                                           Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,

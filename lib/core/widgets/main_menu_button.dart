@@ -1,80 +1,83 @@
 import 'package:flutter/material.dart';
-import 'package:menu_button/menu_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:school_daashboard/core/config/extensions/context_extensions.dart';
 
-import '../config/extensions/context_extensions.dart';
-
-class MainMenuButton extends StatelessWidget {
-  const MainMenuButton({
+class DropDownWidget<T> extends StatelessWidget {
+  const DropDownWidget({
     super.key,
-    required this.itemList,
-    required this.title,
-    required this.child,
-    this.decoration,
-    this.height = .9,
-    this.onItemSelected,
-    this.buttonColor,
-    this.menuColor = Colors.white,
+    required this.listenableValue,
+    // required this.value,
+    this.items,
+    this.onChanged,
+    this.label,
+    this.hint,
   });
 
-  final List<String> itemList;
-  final String title;
-  final Widget child;
-  final BoxDecoration? decoration;
-  final double height;
-  final Color? buttonColor;
-  final Color menuColor;
-  final void Function(String)? onItemSelected;
+  // final T? value;
+  final ValueNotifier<T?> listenableValue;
+  final List<DropdownMenuItem<T>>? items;
+  final void Function(T?)? onChanged;
+  final String? label;
+  final String? hint;
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return MenuButton<String>(
-      itemBackgroundColor: Colors.grey.shade300,
-      menuButtonBackgroundColor: buttonColor ?? Colors.transparent,
-      decoration: decoration,
-      items: itemList,
-      popupHeight: itemList.length > 3 ? size.width * height : null,
-      scrollPhysics: const AlwaysScrollableScrollPhysics(),
-      onItemSelected: onItemSelected,
-      toggledChild: Container(
-        // width: size.width,
-        // height: size.width * .125,
-        color: menuColor,
-        padding: EdgeInsetsDirectional.only(
-          start: size.width * .04,
-          end: size.width * .03,
-          top: size.width * .025,
-          bottom: size.width * .025,
-        ),
-        child: Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: Text(
-            title,
-            overflow: TextOverflow.ellipsis,
-            style: context.textTheme.bodyLarge,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (label != null) ...[
+          Text(
+            label!,
+            style: context.textTheme.bodyLarge?.copyWith(
+              color: context.theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          5.verticalSpace,
+        ],
+        Container(
+          height: 40,
+          decoration: BoxDecoration(
+            color: context.theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              width: 1.5,
+              color: context.theme.colorScheme.outline,
+            ),
+          ),
+          child: ValueListenableBuilder(
+            valueListenable: listenableValue,
+            builder: (context, value, _) {
+              return DropdownButton<T?>(
+                value: value,
+                hint: Text(
+                  hint ?? 'اختر',
+                  style: context.textTheme.bodyMedium
+                      ?.copyWith(fontFamily: 'Cairo'),
+                ),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: context.theme.colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: 'Cairo',
+                ),
+                borderRadius: BorderRadius.circular(8),
+                // focusColor: AppColors.surfaceContainerLow(context),
+                underline: const SizedBox.shrink(),
+                items: items,
+                onChanged: (value) {
+                  listenableValue.value = value;
+                  onChanged?.call(value);
+                },
+                isExpanded: true,
+                icon: const Icon(Icons.arrow_drop_down_rounded),
+                padding: const EdgeInsets.all(5),
+                isDense: true,
+                // dropdownColor: AppColors.surfaceContainerLow(context),
+              );
+            },
           ),
         ),
-      ),
-      itemBuilder: (String value) => Container(
-        decoration: BoxDecoration(
-          color: menuColor,
-        ),
-        // height: size.width * .1,
-
-        alignment: Alignment.centerRight,
-        padding: EdgeInsetsDirectional.only(
-          start: size.width * .01,
-          top: size.width * .025,
-          bottom: size.width * .025,
-        ),
-        child: Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: Text(
-            value,
-            style: context.textTheme.bodyLarge,
-          ),
-        ),
-      ),
-      child: child,
+      ],
     );
   }
 }

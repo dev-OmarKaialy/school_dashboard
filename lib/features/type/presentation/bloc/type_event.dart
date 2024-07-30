@@ -32,3 +32,10 @@ class AddTypeEvent extends TypeEvent {
     required this.totalAmount,
   });
 }
+
+class AssignTypeToSection extends TypeEvent {
+  final int id;
+  final int sid;
+
+  AssignTypeToSection({required this.id, required this.sid});
+}

@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:school_daashboard/core/resources/type_defs.dart';
+
 class ApiVariables {
   /////////////
   ///General///
@@ -59,7 +61,6 @@ class ApiVariables {
   Uri updateTypes() => _mainUri(path: 'type/update');
 
   Uri deleteTypes(int id) => _mainUri(path: 'type/delete');
-  Uri assingSectionToType() => _mainUri(path: 'type/assing_section_to_type');
 /////section/////
   Uri section() => _mainUri(path: 'section');
 
@@ -85,4 +86,17 @@ class ApiVariables {
   Uri sendNotification() {
     return _mainUri(path: 'user/sendNotification');
   }
+
+  ///// assignments ///////
+  Uri assignUserToClassSection() {
+    return _mainUri(path: 'user/assign_user_to_class_section');
+  }
+
+  Uri assingSectionToType(int id, int sid) => _mainUri(
+      path: 'type/assing_section_to_type',
+      queryParameters: {'type_id': "$id", "section_id": "$sid"});
+  Uri program() => _mainUri(path: 'program');
+  Uri addprogram() => _mainUri(path: 'program/add');
+  Uri attachprogram(ParamsMap params) =>
+      _mainUri(path: 'program/attach', queryParameters: params);
 }

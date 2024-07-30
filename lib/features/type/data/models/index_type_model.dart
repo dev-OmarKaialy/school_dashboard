@@ -82,7 +82,7 @@ class TypeModel {
   final String? totalAmount;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final List<dynamic>? sections;
+  final List<Section>? sections;
 
   TypeModel({
     this.id,
@@ -98,7 +98,7 @@ class TypeModel {
         id: json["id"],
         name: json["name"],
         description: json["description"],
-        totalAmount: json["total_amount"].toString(),
+        totalAmount: json["total_amount"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -107,7 +107,8 @@ class TypeModel {
             : DateTime.parse(json["updated_at"]),
         sections: json["sections"] == null
             ? []
-            : List<dynamic>.from(json["sections"]!.map((x) => x)),
+            : List<Section>.from(
+                json["sections"]!.map((x) => Section.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -117,7 +118,72 @@ class TypeModel {
         "total_amount": totalAmount,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
-        "sections":
-            sections == null ? [] : List<dynamic>.from(sections!.map((x) => x)),
+        "sections": sections == null
+            ? []
+            : List<dynamic>.from(sections!.map((x) => x.toJson())),
+      };
+}
+
+class Section {
+  final int? id;
+  final String? name;
+  final String? description;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final Pivot? pivot;
+
+  Section({
+    this.id,
+    this.name,
+    this.description,
+    this.createdAt,
+    this.updatedAt,
+    this.pivot,
+  });
+
+  factory Section.fromJson(Map<String, dynamic> json) => Section(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "pivot": pivot?.toJson(),
+      };
+}
+
+class Pivot {
+  final int? typeId;
+  final int? sectionId;
+  final int? id;
+
+  Pivot({
+    this.typeId,
+    this.sectionId,
+    this.id,
+  });
+
+  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
+        typeId: json["type_id"],
+        sectionId: json["section_id"],
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "type_id": typeId,
+        "section_id": sectionId,
+        "id": id,
       };
 }

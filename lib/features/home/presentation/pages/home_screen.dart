@@ -6,6 +6,7 @@ import 'package:school_daashboard/features/home/data/models/home_items.dart';
 import 'package:school_daashboard/features/section/presentation/pages/sections_screen.dart';
 import 'package:school_daashboard/features/type/presentation/pages/types_screen.dart';
 
+import '../../../programs/presentation/pages/programs_screen.dart';
 import '../../../users/presentation/pages/user_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,9 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
         image: 'assets/students.png',
         screen: const UsersScreen()),
     HomeItem(
-        title: 'الاحصائيات',
+        title: 'البرامج',
         image: 'assets/statistics.png',
-        screen: const SizedBox()),
+        screen: const ProgramsScreen()),
   ];
   @override
   Widget build(BuildContext context) {

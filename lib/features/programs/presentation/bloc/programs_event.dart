@@ -6,3 +6,18 @@ abstract class ProgramsEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class IndexProgramsEvent extends ProgramsEvent {}
+
+class AttachToLessonEvent extends ProgramsEvent {
+  final int programId;
+  final int teacherId;
+  final int lessonId;
+  final String time;
+  const AttachToLessonEvent({
+    required this.programId,
+    required this.teacherId,
+    required this.lessonId,
+    required this.time,
+  });
+}

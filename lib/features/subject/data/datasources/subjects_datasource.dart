@@ -39,8 +39,7 @@ class SubjectDatasource {
   }
 
   Future<String> deleteSubject(int id) async {
-    final postApi = PostApi(
-        body: {},
+    final postApi = GetApi(
         uri: ApiVariables().deleteSubjects(id),
         fromJson: (str) {
           final result = jsonDecode(str);

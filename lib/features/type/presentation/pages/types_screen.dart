@@ -8,6 +8,7 @@ import 'package:school_daashboard/core/utils/toaster.dart';
 import 'package:school_daashboard/core/widgets/shimmer_widget.dart';
 import 'package:school_daashboard/core/widgets/yes_no_dialog.dart';
 import 'package:school_daashboard/features/type/presentation/bloc/type_bloc.dart';
+import 'package:school_daashboard/features/type/presentation/pages/type_details.dart';
 
 import '../../../../core/config/theme/light_theme.dart';
 import '../../../../core/resources/dimension_manager.dart';
@@ -143,7 +144,14 @@ class _TypesScreenState extends State<TypesScreen> {
                                           },
                                         ),
                                         PopupMenuItem(
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                              return TypeDetails(
+                                                  type: state.types[index]);
+                                            }));
+                                          },
                                           child: const Text('عرض'),
                                         ),
                                         PopupMenuItem(
