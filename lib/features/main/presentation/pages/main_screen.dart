@@ -2,12 +2,10 @@ import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_daashboard/core/global_functions.dart';
-import 'package:school_daashboard/features/notification/presentation/pages/send_notification_screen.dart';
 import 'package:school_daashboard/features/splash/presentation/pages/splash_screen.dart';
 
 import '../../../../core/config/extensions/context_extensions.dart';
 import '../../../home/presentation/pages/home_screen.dart';
-import '../../../subject/presentation/pages/subjects_screen.dart';
 import '../cubit/main_cubit.dart';
 
 class MainScreen extends StatelessWidget {
@@ -48,26 +46,6 @@ class MainScreen extends StatelessWidget {
                         const SnackBar(content: Text("الرئيسية"))),
                   ),
                   CollapsibleItem(
-                    text: 'الصفوف',
-                    icon: Icons.school_outlined,
-                    onPressed: () {
-                      context.read<MainCubit>().changeIndex(1);
-                    },
-                    isSelected: state.index == 1,
-                    onHold: () => ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text("الصفوف"))),
-                  ),
-                  CollapsibleItem(
-                    text: 'إرسال إشعار',
-                    icon: Icons.notification_add_rounded,
-                    onPressed: () {
-                      context.read<MainCubit>().changeIndex(2);
-                    },
-                    isSelected: state.index == 2,
-                    onHold: () => ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("إرسال إشعار"))),
-                  ),
-                  CollapsibleItem(
                     text: 'تسجيل الخروج',
                     icon: Icons.logout_rounded,
                     onPressed: () async {
@@ -94,8 +72,6 @@ class MainScreen extends StatelessWidget {
                   index: state.index,
                   children: const [
                     HomeScreen(),
-                    SubjectsScreen(),
-                    SendNotificationScreen(),
                   ],
                 )),
           );

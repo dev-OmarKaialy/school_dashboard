@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_daashboard/core/config/extensions/context_extensions.dart';
+import 'package:school_daashboard/core/config/extensions/widget_extensions.dart';
 import 'package:school_daashboard/core/resources/cubit_status.dart';
 import 'package:school_daashboard/core/utils/toaster.dart';
 import 'package:school_daashboard/core/widgets/main_menu_button.dart';
+import 'package:school_daashboard/core/widgets/main_text_field.dart';
 import 'package:school_daashboard/features/section/presentation/bloc/section_bloc.dart';
 import 'package:school_daashboard/features/type/data/models/index_type_model.dart';
 import 'package:school_daashboard/features/type/presentation/bloc/type_bloc.dart';
@@ -12,6 +15,7 @@ import 'package:school_daashboard/features/type/presentation/bloc/type_bloc.dart
 import '../../../../core/config/theme/light_theme.dart';
 import '../../../../core/resources/font_manager.dart';
 import '../../../../core/widgets/main_button.dart';
+import '../../../teacher/presentation/bloc/teacher_bloc.dart';
 
 class TypeDetails extends StatefulWidget {
   const TypeDetails({
@@ -186,6 +190,100 @@ class _TypeDetailsState extends State<TypeDetails> {
                                       context.textTheme.titleLarge?.copyWith()),
                             ),
                           ]),
+                      20.verticalSpace,
+                      MainButton(
+                          text: 'إضافة واجب',
+                          onPressed: () {
+                            var teacherId = ValueNotifier<int?>(null);
+                            var time = TextEditingController();
+                            var title = TextEditingController();
+
+                            showAdaptiveDialog(
+                                context: context,
+                                builder: (c) {
+                                  return Dialog(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(15),
+                                      width: .7.sw,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text('إضافة واجب'),
+                                          20.verticalSpace,
+                                          MainTextField(
+                                            controller: title,
+                                            label: 'عنوان الواجب',
+                                          ),
+                                          20.verticalSpace,
+                                          MainTextField(
+                                            enabled: false,
+                                            label: 'تاريخ التسليم النهائي',
+                                            controller: time,
+                                          ).onTap(() {
+                                            showDatePicker(
+                                              firstDate: DateTime.now(),
+                                              lastDate: DateTime.now().add(
+                                                  const Duration(days: 15)),
+                                              initialDate: DateTime.now(),
+                                              context: context,
+                                            ).then((value) {
+                                              if (value != null) {
+                                                time.text =
+                                                    DateFormat('yyyy/MM/dd')
+                                                        .format(value);
+                                              }
+                                            });
+                                          }),
+                                          20.verticalSpace,
+                                          BlocBuilder<TeacherBloc,
+                                              TeacherState>(
+                                            builder: (context, state) {
+                                              return DropDownWidget(
+                                                listenableValue: teacherId,
+                                                items: state.teachers.map((e) {
+                                                  return DropdownMenuItem(
+                                                    value: e.id,
+                                                    child: Text(e.name!),
+                                                  );
+                                                }).toList(),
+                                              );
+                                            },
+                                          ),
+                                          20.verticalSpace,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              MainButton(
+                                                  text: 'إضافة',
+                                                  onPressed: () {
+                                                    context
+                                                        .read<TypeBloc>()
+                                                        .add(AddHomeWorkEvent(
+                                                            text: title.text,
+                                                            endDate: time.text,
+                                                            teacherId: teacherId
+                                                                .value!,
+                                                            typeSectionId:
+                                                                e.pivot?.id ??
+                                                                    1));
+                                                    Navigator.pop(context);
+                                                  }),
+                                              20.horizontalSpace,
+                                              MainButton(
+                                                  text: 'الغاء',
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  })
+                                            ],
+                                          ),
+                                          20.verticalSpace,
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                          })
                     ]),
               ),
             );

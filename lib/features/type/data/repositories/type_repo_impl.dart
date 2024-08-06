@@ -37,4 +37,10 @@ class TypeRepoImpl with HandlingExceptionManager {
       return Right(await TypeDatasource().assignTypeToSection(id, sid));
     });
   }
+
+  Future<Either<Failure, void>> addHomeWork(BodyMap body) async {
+    return wrapHandling(tryCall: () async {
+      return Right(await TypeDatasource().addHomework(body));
+    });
+  }
 }

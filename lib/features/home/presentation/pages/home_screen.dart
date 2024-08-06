@@ -3,10 +3,12 @@ import 'package:school_daashboard/core/config/extensions/context_extensions.dart
 import 'package:school_daashboard/core/config/theme/light_theme.dart';
 import 'package:school_daashboard/core/resources/dimension_manager.dart';
 import 'package:school_daashboard/features/home/data/models/home_items.dart';
+import 'package:school_daashboard/features/programs/presentation/pages/programs_screen.dart';
 import 'package:school_daashboard/features/section/presentation/pages/sections_screen.dart';
 import 'package:school_daashboard/features/type/presentation/pages/types_screen.dart';
 
-import '../../../programs/presentation/pages/programs_screen.dart';
+import '../../../notification/presentation/pages/send_notification_screen.dart';
+import '../../../subject/presentation/pages/subjects_screen.dart';
 import '../../../teacher/presentation/pages/teachers_screen.dart';
 import '../../../users/presentation/pages/user_screen.dart';
 
@@ -37,9 +39,25 @@ class _HomeScreenState extends State<HomeScreen> {
       screen: const TeachersScreen(),
     ),
     HomeItem(
-        title: 'البرامج',
-        image: 'assets/statistics.png',
-        screen: const ProgramsScreen()),
+      title: 'البرامج',
+      image: 'assets/statistics.png',
+      screen: const ProgramsScreen(),
+    ),
+    HomeItem(
+      title: 'الاشعارات',
+      image: 'assets/notifications.png',
+      screen: const SendNotificationScreen(),
+    ),
+    HomeItem(
+      title: 'المواد',
+      image: 'assets/subjects.png',
+      screen: const SubjectsScreen(),
+    ),
+    HomeItem(
+      title: 'الواجبات',
+      image: 'assets/homework.png',
+      screen: const SubjectsScreen(),
+    ),
   ];
   @override
   Widget build(BuildContext context) {
