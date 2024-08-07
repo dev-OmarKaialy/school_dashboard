@@ -24,6 +24,12 @@ class TypeRepoImpl with HandlingExceptionManager {
     });
   }
 
+  Future<Either<Failure, void>> addprogram(BodyMap id) async {
+    return await wrapHandling(tryCall: () async {
+      return Right(await TypeDatasource().addProrgram(id));
+    });
+  }
+
   Future<Either<Failure, ShowTypesResponseModel>> updateType(
       BodyMap body) async {
     return await wrapHandling(tryCall: () async {

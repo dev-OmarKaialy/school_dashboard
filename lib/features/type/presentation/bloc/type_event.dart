@@ -63,3 +63,14 @@ class AddHomeWorkEvent extends TypeEvent {
     return result;
   }
 }
+
+class AddProgramEvent extends TypeEvent {
+  final String name;
+  final String description;
+  final int stId;
+  AddProgramEvent({
+    required this.name,
+    required this.description,
+    required this.stId,
+  });
+}

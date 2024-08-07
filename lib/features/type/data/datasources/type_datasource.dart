@@ -19,6 +19,12 @@ class TypeDatasource {
     return await getApi.callRequest();
   }
 
+  Future<void> addProrgram(BodyMap body) async {
+    final getApi =
+        PostApi(uri: ApiVariables().addprogram(), body: body, fromJson: (s) {});
+    return await getApi.callRequest();
+  }
+
   Future<void> addHomework(BodyMap body) async {
     final getApi = PostApi(
       body: body,

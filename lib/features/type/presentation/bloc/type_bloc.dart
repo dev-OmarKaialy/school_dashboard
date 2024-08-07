@@ -93,5 +93,19 @@ class TypeBloc extends Bloc<TypeEvent, TypeState> {
       });
       Toaster.closeLoading();
     });
+    on<AddProgramEvent>((event, emit) async {
+      Toaster.showLoading();
+      final result = await TypeRepoImpl().addprogram({
+        'name': event.name,
+        'description': event.description,
+        'type_section_id': event.stId
+      });
+      result.fold((left) {
+        Toaster.showToast(left.message);
+      }, (right) {
+        Toaster.showToast('تمت الإضافة بنجاح');
+      });
+      Toaster.closeLoading();
+    });
   }
 }

@@ -283,6 +283,83 @@ class _TypeDetailsState extends State<TypeDetails> {
                                     ),
                                   );
                                 });
+                          }),
+                      20.verticalSpace,
+                      MainButton(
+                          text: 'إضافة برنامج',
+                          onPressed: () {
+                            var teacherId = ValueNotifier<int?>(null);
+                            var time = TextEditingController();
+                            var title = TextEditingController();
+
+                            showAdaptiveDialog(
+                                context: context,
+                                builder: (c) {
+                                  return Dialog(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(15),
+                                      width: .7.sw,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text('إضافة برنامج'),
+                                          20.verticalSpace,
+                                          MainTextField(
+                                            controller: title,
+                                            label: 'عنوان برنامج',
+                                          ),
+                                          20.verticalSpace,
+                                          MainTextField(
+                                            label: 'وصف البرنامج',
+                                            controller: time,
+                                          ),
+                                          20.verticalSpace,
+                                          BlocBuilder<TeacherBloc,
+                                              TeacherState>(
+                                            builder: (context, state) {
+                                              return DropDownWidget(
+                                                listenableValue: teacherId,
+                                                items: state.teachers.map((e) {
+                                                  return DropdownMenuItem(
+                                                    value: e.id,
+                                                    child: Text(e.name!),
+                                                  );
+                                                }).toList(),
+                                              );
+                                            },
+                                          ),
+                                          20.verticalSpace,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              MainButton(
+                                                  text: 'إضافة',
+                                                  onPressed: () {
+                                                    context
+                                                        .read<TypeBloc>()
+                                                        .add(AddProgramEvent(
+                                                            name: title.text,
+                                                            description:
+                                                                time.text,
+                                                            stId: e.pivot?.id ??
+                                                                1));
+                                                    Navigator.pop(context);
+                                                  }),
+                                              20.horizontalSpace,
+                                              MainButton(
+                                                  text: 'الغاء',
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  })
+                                            ],
+                                          ),
+                                          20.verticalSpace,
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
                           })
                     ]),
               ),
