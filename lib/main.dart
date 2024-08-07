@@ -13,6 +13,7 @@ import 'package:school_daashboard/features/users/presentation/bloc/users_bloc.da
 
 import 'core/config/theme/dark_theme.dart';
 import 'core/config/theme/light_theme.dart';
+import 'features/examps/presentation/bloc/examps_bloc.dart';
 import 'features/splash/presentation/pages/splash_screen.dart';
 import 'features/type/presentation/bloc/type_bloc.dart';
 
@@ -21,6 +22,9 @@ void main() {
     providers: [
       BlocProvider(
         create: (context) => AuthBloc(),
+      ),
+      BlocProvider(
+        create: (context) => ExampsBloc(),
       ),
       BlocProvider(
         create: (context) => SubjectBloc()..add(GetSubjectsEvent()),

@@ -100,4 +100,6 @@ class ApiVariables {
   Uri attachprogram(ParamsMap params) =>
       _mainUri(path: 'program/attach', queryParameters: params);
   Uri addHomework() => _mainUri(path: 'homework/add');
+  Uri exams() => _mainUri(path: 'examp');
+  Uri examsAdd() => _mainUri(path: 'examp/add');
 }

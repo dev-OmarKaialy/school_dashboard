@@ -7,6 +7,7 @@ import 'package:school_daashboard/features/programs/presentation/pages/programs_
 import 'package:school_daashboard/features/section/presentation/pages/sections_screen.dart';
 import 'package:school_daashboard/features/type/presentation/pages/types_screen.dart';
 
+import '../../../examps/presentation/pages/examps_scree.dart';
 import '../../../notification/presentation/pages/send_notification_screen.dart';
 import '../../../subject/presentation/pages/subjects_screen.dart';
 import '../../../teacher/presentation/pages/teachers_screen.dart';
@@ -54,9 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
       screen: const SubjectsScreen(),
     ),
     HomeItem(
-      title: 'الواجبات',
+      title: 'الامتحانات',
       image: 'assets/homework.png',
-      screen: const SubjectsScreen(),
+      screen: const ExampsScreen(),
     ),
   ];
   @override
